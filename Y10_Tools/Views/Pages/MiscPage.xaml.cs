@@ -3,11 +3,11 @@ using Wpf.Ui.Controls;
 
 namespace Y10_Tools.Views.Pages
 {
-    public partial class AppsPage : INavigableView<AppsViewModel>
+    public partial class MiscPage : INavigableView<MiscViewModel>
     {
-        public AppsViewModel ViewModel { get; }
+        public MiscViewModel ViewModel { get; }
 
-        public AppsPage(AppsViewModel viewModel)
+        public MiscPage(MiscViewModel viewModel)
         {
             ViewModel = viewModel;
             DataContext = this;

@@ -45,6 +45,7 @@ Text="Boot on file" />
             </StackPanel>
         </ui:Card>
         <ui:Card Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="10">
+            <ui:TextBlock x:Name="Tests" FontWeight="Bold" Margin="10" Text=""/>
         </ui:Card>
     </Grid>
 </Page>

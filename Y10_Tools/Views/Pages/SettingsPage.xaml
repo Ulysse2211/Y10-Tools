@@ -51,14 +51,22 @@ Text="Device Model" />
                     Margin="10,0,0,0"
 FontTypography="BodyStrong"
 Text="Device Name" />
-                    <ui:DropDownButton Content="ADB Name" Icon="{ui:SymbolIcon Tablet24}" Margin="10,10,0,0" Grid.Row="1" Grid.Column="1">
-                        <ui:DropDownButton.Flyout>
-                            <ContextMenu>
-                                <MenuItem Header="ADB Name" />
-                                <MenuItem Header="ADB Name" />
-                            </ContextMenu>
-                        </ui:DropDownButton.Flyout>
-                    </ui:DropDownButton>
+                    <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition Width="auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ui:DropDownButton Grid.Column="0" x:Name="dropDownADB" Content="Select your device" Icon="{ui:SymbolIcon Tablet24}" Margin="10,10,0,0">
+                            <ui:DropDownButton.Flyout>
+                                <ContextMenu x:Name="devicesSelector">
+                                    <MenuItem Header="ADB Name" />
+                                    <MenuItem Header="ADB Name" />
+                                </ContextMenu>
+                            </ui:DropDownButton.Flyout>
+                        </ui:DropDownButton>
+                        <ui:Button Grid.Column="1" Icon="{ui:SymbolIcon ArrowClockwise12}" Margin="10,10,0,0"
+                                   ToolTipService.ToolTip="Refresh the list of devices" Click="RefreshDevices"></ui:Button>
+                    </Grid>
                 </Grid>
             </StackPanel>
         </ui:Card>
