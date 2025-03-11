@@ -16,7 +16,12 @@
     Foreground="{DynamicResource TextFillColorPrimaryBrush}"
     mc:Ignorable="d">
     <Grid>
-
+        <ui:InfoBar
+            VerticalAlignment="Bottom"
+                    IsOpen="True"
+                    Message="Before being able to use this software, please plug your tablet in your computer and select it in the settings tab."
+                    Severity="Warning" 
+            Margin="10"/>
         <Image HorizontalAlignment="Center" Height="212" Margin="0,27,0,0" VerticalAlignment="Top" Width="352" Source="pack://application:,,,/Assets/logo.png"/>
         <Grid Margin="0,250,0,0">
             <Grid.ColumnDefinitions>

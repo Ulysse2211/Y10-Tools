@@ -30,6 +30,8 @@
     <None Remove="Assets\Apps\CYou.png" />
     <None Remove="Assets\Apps\Droidify.png" />
     <None Remove="Assets\Apps\GCam.png" />
+    <None Remove="Assets\connect-device.png" />
+    <None Remove="Assets\connect-device.svg" />
     <None Remove="Assets\Exploit\mtk-su" />
     <None Remove="Assets\logo-bg-256.png" />
     <None Remove="Assets\logo.png" />
@@ -43,6 +45,7 @@
     <Content Include="Assets\Exploit\mtk-su">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Assets\connect-device.png" />
     <Resource Include="Assets\Recovery\TWRP_UI.png" />
   </ItemGroup>
 

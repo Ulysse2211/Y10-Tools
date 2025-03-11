@@ -23,9 +23,7 @@
         </Grid.ColumnDefinitions>
         <ui:Card Grid.Column="0" VerticalAlignment="Top" Margin="10">
             <StackPanel>
-                <ui:TextBlock
-FontTypography="Subtitle"
-Text="Device" Margin="10"/>
+                <ui:TextBlock FontTypography="Subtitle" Text="Device" Margin="10"/>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -35,22 +33,7 @@ Text="Device" Margin="10"/>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <ui:TextBlock Grid.Row="0"  Grid.Column="0"
-                    Margin="10,0,0,0"
-FontTypography="BodyStrong"
-Text="Device Model" />
-                    <ui:DropDownButton Content="Y10 2019" Icon="{ui:SymbolIcon Tablet24}" Margin="10,10,0,0" Grid.Row="1" Grid.Column="0">
-                        <ui:DropDownButton.Flyout>
-                            <ContextMenu>
-                                <MenuItem Header="Y10 2019" />
-                                <MenuItem Header="Y10 2020" />
-                            </ContextMenu>
-                        </ui:DropDownButton.Flyout>
-                    </ui:DropDownButton>
-                    <ui:TextBlock Grid.Row="0"  Grid.Column="1"
-                    Margin="10,0,0,0"
-FontTypography="BodyStrong"
-Text="Device Name" />
+                    <ui:TextBlock Grid.Row="0" Grid.Column="1" Margin="10,0,0,0" FontTypography="BodyStrong" Text="Device Name" />
                     <Grid Grid.Row="1" Grid.Column="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>

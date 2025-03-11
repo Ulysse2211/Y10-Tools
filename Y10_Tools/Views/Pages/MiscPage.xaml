@@ -45,7 +45,22 @@ Text="Boot on file" />
             </StackPanel>
         </ui:Card>
         <ui:Card Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="10">
-            <ui:TextBlock x:Name="Tests" FontWeight="Bold" Margin="10" Text=""/>
+            <StackPanel>
+                <Expander x:Name="dBProps" Header="build.prop" 
+                          Margin="10"
+                          
+                          Content="This is in the content"
+                          IsEnabled="False"
+                          
+                          />
+                <Expander x:Name="dDProps" Header="default.prop" 
+                          Margin="10"
+                          
+                          Content="This is in the content"
+                          IsEnabled="False"
+                          
+                          />
+            </StackPanel>
         </ui:Card>
     </Grid>
 </Page>
