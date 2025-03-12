@@ -16,7 +16,7 @@
     <Grid>
         <Grid>
             <Grid.Effect>
-                <BlurEffect Radius="15"/>
+                <BlurEffect x:Name="ConnectDeviceOverlayBlur" Radius="15"/>
             </Grid.Effect>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -55,12 +55,12 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <StackPanel Grid.Row="0" Grid.Column="0" Background="Transparent">
-                <StackPanel HorizontalAlignment="Center">
-                    <Image Height="300" Source="/Assets/connect-device.png"/>
+            <Border x:Name="ConnectDeviceOverlay" Visibility="Hidden" Grid.Row="0" Grid.Column="0" Background="#4D000000" CornerRadius="15">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Height="200" Source="/Assets/connect-device.png"/>
                     <ui:TextBlock FontTypography="TitleLarge" Margin="10" Text="To use this feature, select your device in the settings !"/>
                 </StackPanel>
-            </StackPanel>
+            </Border>
         </Grid>
     </Grid>
 </Page>
