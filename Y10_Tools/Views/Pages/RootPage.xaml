@@ -55,7 +55,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Border x:Name="ConnectDeviceOverlay" Visibility="Hidden" Grid.Row="0" Grid.Column="0" Background="#4D000000" CornerRadius="15">
+            <Border x:Name="ConnectDeviceOverlay" Visibility="Visible" Grid.Row="0" Grid.Column="0" Background="#4D000000" CornerRadius="15">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                     <Image Height="200" Source="/Assets/connect-device.png"/>
                     <ui:TextBlock FontTypography="TitleLarge" Margin="10" Text="To use this feature, select your device in the settings !"/>

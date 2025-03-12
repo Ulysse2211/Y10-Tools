@@ -1,11 +1,8 @@
 ﻿using Y10_Tools.ViewModels.Pages;
 using Wpf.Ui.Controls;
 using AdvancedSharpAdbClient.Models;
-using static System.Net.Mime.MediaTypeNames;
 using AdvancedSharpAdbClient.Receivers;
 using AdvancedSharpAdbClient.DeviceCommands;
-using AdvancedSharpAdbClient;
-using System.IO;
 using System.Text.RegularExpressions;
 using Y10_Tools.Helpers;
 
@@ -27,6 +24,7 @@ namespace Y10_Tools.Views.Pages
         }
         private void RefreshDevices(object sender, RoutedEventArgs e)
         {
+            EventManager.TriggerShowOverlay();
             devicesSelector.Items.Clear();
             dropDownADB.Content = "Select your device";
             SelectedDeviceADB = null;
@@ -41,6 +39,10 @@ namespace Y10_Tools.Views.Pages
             devicesSelector.Items.Clear();
             foreach (DeviceData device in devices)
             {
+                if (device.State != DeviceState.Online)
+                {
+                    continue;
+                }
                 MenuItem deviceItem = new MenuItem
                 {
                     Header = device.Serial
@@ -55,51 +57,79 @@ namespace Y10_Tools.Views.Pages
             }
         }
 
+        private static string? GetLastValueOfLine(string line, string data)
+        {
+            var linefound = "";
+            foreach (var a in data.Split('\n'))
+            {
+                if (a.StartsWith(line))
+                {
+                    linefound = a;
+                }
+            }
+            if (linefound != "")
+            {
+                var match = Regex.Match(linefound, @"\b\w+\b(?=\W*$)");
+                if (match.Success)
+                {
+                    return match.Value;
+                } else
+                {
+                    return null;
+                }
+            }
+            return null;
+        }
+
         private async void SelectDevice(DeviceData device)
         {
+            var app = (App)Application.Current;
+            var client = app.ADB;
+            
+            IShellOutputReceiver CheckMTKChipset = new ConsoleOutputReceiver();
+            await client.ExecuteShellCommandAsync(device, "cat /proc/cpuinfo", CheckMTKChipset);
+            var chipset = GetLastValueOfLine("Hardware", CheckMTKChipset.ToString());
+
+            if (chipset == null && !chipset.StartsWith("MT8")) {
+                return; 
+            } else if (!chipset.StartsWith("MT81")) {
+                UiElementsHelper.MessBox("Unsupported Chipset", $"If you continue using this app with an unsuported tablet, you WILL run into unexpected problems. Please make sure you understand this and you may contact me on discord or github if you have an issue.\n\nYour tablet seems to have a {chipset}.");
+            }
+
             dropDownADB.Content = device.Serial;
             SelectedDeviceADB = device;
-            var buildprops = await ADBShellHelper.RootShell(device, "cat /vendor/build.prop");
+            var buildprops = await ADBHelper.RootShell(device, "cat /vendor/build.prop");
             string bDate = null;
             if (buildprops != null)
             {
-                foreach (var line in buildprops.Split('\n'))
-                {
-                    if (line.StartsWith("ro.vendor.build.date"))
-                    {
-                        bDate = line;
-                        break;
-                    }
-                }
+                bDate = GetLastValueOfLine("ro.vendor.build.date=", buildprops);
+
                 if (bDate != null)
                 {
-                    var match = Regex.Match(bDate, @"\d{4}");
-
-                    if (match.Success)
+                    if (bDate == "2019")
                     {
-                        if (match.Value == "2019")
-                        {
-                            tabv = 0;
-                        }
-                        else if (match.Value == "2020")
-                        {
-                            tabv = 1;
-                        } else
-                        {
-                            tabv = -1;
-                            System.Windows.MessageBox.Show($"If you continue using this app with an unsuported tablet, you WILL run into unexpected problems. Please make sure you understand this and you may contact me on discord or github if you have an issue.\n\n Your tablet seems to has been made in {match.Value}.", "\U0001faf7🏻 STOP !");
-                        }
+                        tabv = 0;
                     }
-                    else
+                    else if (bDate == "2020")
                     {
-                        tabv = -1;
-                        System.Windows.MessageBox.Show("If you continue using this app with an unsuported tablet, you WILL run into unexpected problems. Please make sure you understand this and you may contact me on discord or github if you have an issue.", "\U0001faf7🏻 STOP !");
+                        tabv = 1;
+                    } else
+                    {
+                        bDate = null;
                     }
-                } else {
-                    tabv = -1;
-                    System.Windows.MessageBox.Show("If you continue using this app with an unsuported tablet, you WILL run into unexpected problems. Please make sure you understand this and you may contact me on discord or github if you have an issue.", "\U0001faf7🏻 STOP !");
                 }
+                if (bDate == null)
+                {
+                    tabv = -1;
+                    UiElementsHelper.MessBox("Unsupported version", $"If you continue using this app with an unsuported tablet, you WILL run into unexpected problems. Please make sure you understand this and you may contact me on discord or github if you have an issue.\n\nYour tablet seems to has been made in {bDate}.");
+                }
+            } else
+            {
+                tabv = -1;
             }
+
+            EventManager.TriggerHideOverlay();
+            EventManager.DeviceUpdated();
         }
     }
 }

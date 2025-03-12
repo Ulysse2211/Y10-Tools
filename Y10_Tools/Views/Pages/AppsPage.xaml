@@ -14,7 +14,11 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       mc:Ignorable="d">
     <Grid>
-        <Grid.RowDefinitions>
+        <Grid>
+            <Grid.Effect>
+                <BlurEffect x:Name="ConnectDeviceOverlayBlur" Radius="15"/>
+            </Grid.Effect>
+            <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -35,25 +39,25 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <ui:CardControl Grid.Row="0" Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Apps/Aves.png'}" VerticalAlignment="Top" Margin="10">
-                <ui:CardControl.Header>
-                    <StackPanel>
-                        <ui:TextBlock
+            <ui:CardControl.Header>
+                <StackPanel>
+                    <ui:TextBlock
             Margin="0"
             FontTypography="BodyStrong"
             Foreground="{DynamicResource TextFillColorPrimaryBrush}"
             Text="Aves Gallery"
             TextWrapping="WrapWithOverflow" />
-                        <ui:TextBlock
+                    <ui:TextBlock
             FontTypography="Body"
             Appearance="Secondary"
             Foreground="{DynamicResource TextFillColorSecondaryBrush}"
             Text="Aves is a photo gallery, supporting many filee formats, with other nice feartures"
             TextWrapping="WrapWithOverflow" />
-                    </StackPanel>
-                </ui:CardControl.Header>
-                <ui:Button Content="Install" />
-            </ui:CardControl>
-            <ui:CardControl Grid.Row="1" Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Apps/Aurora.png'}" VerticalAlignment="Top" Margin="10">
+                </StackPanel>
+            </ui:CardControl.Header>
+            <ui:Button Content="Install" />
+        </ui:CardControl>
+        <ui:CardControl Grid.Row="1" Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Apps/Aurora.png'}" VerticalAlignment="Top" Margin="10">
             <ui:CardControl.Header>
                 <StackPanel>
                     <ui:TextBlock
@@ -186,5 +190,20 @@ TextWrapping="WrapWithOverflow" />
             </ui:CardControl.Header>
             <ui:Button Content="Install" />
         </ui:CardControl>
+    </Grid>
+    <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border x:Name="ConnectDeviceOverlay" Visibility="Visible" Grid.Row="0" Grid.Column="0" Background="#4D000000" CornerRadius="15">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Height="200" Source="/Assets/connect-device.png"/>
+                    <ui:TextBlock FontTypography="TitleLarge" Margin="10" Text="To use this feature, select your device in the settings !"/>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

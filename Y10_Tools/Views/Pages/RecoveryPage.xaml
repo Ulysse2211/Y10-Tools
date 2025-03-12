@@ -14,7 +14,11 @@
       Foreground="{DynamicResource TextFillColorPrimaryBrush}"
       mc:Ignorable="d">
     <Grid>
-        <Grid.RowDefinitions>
+        <Grid>
+            <Grid.Effect>
+                <BlurEffect x:Name="ConnectDeviceOverlayBlur" Radius="15"/>
+            </Grid.Effect>
+            <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
@@ -56,5 +60,20 @@
                    Height="53" Width="454"
                    HorizontalAlignment="Center"
                    Margin="0,20,0,20"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Border x:Name="ConnectDeviceOverlay" Visibility="Visible" Grid.Row="0" Grid.Column="0" Background="#4D000000" CornerRadius="15">
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <Image Height="200" Source="/Assets/connect-device.png"/>
+                    <ui:TextBlock FontTypography="TitleLarge" Margin="10" Text="To use this feature, select your device in the settings !"/>
+                </StackPanel>
+            </Border>
+        </Grid>
     </Grid>
 </Page>

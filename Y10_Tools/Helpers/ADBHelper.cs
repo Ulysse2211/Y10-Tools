@@ -8,11 +8,21 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Y10_Tools.Views.Pages;
 
 namespace Y10_Tools.Helpers
 {
-    class ADBShellHelper
+    class ADBHelper
     {
+        public static DeviceData? GetDevice()
+        {
+            if (SettingsPage.SelectedDeviceADB != null)
+            {
+                return SettingsPage.SelectedDeviceADB;
+            }
+            return null;
+        }
+
         public static async Task<string?> RootShell(DeviceData device, string command)
         {
             if (device == null)
@@ -38,8 +48,7 @@ namespace Y10_Tools.Helpers
             }
 
             IShellOutputReceiver receiver = new ConsoleOutputReceiver();
-            string createScript = $@"echo -e #!/system/bin/sh\n{command}' > /data/local/tmp/y10tempCommandRun.sh && chmod 755 /data/local/tmp/y10tempCommandRun.sh";
-            
+            string createScript = $"echo -e \"#!/system/bin/sh\n{command}\" > /data/local/tmp/y10tempCommandRun.sh && chmod 755 /data/local/tmp/y10tempCommandRun.sh";
             await client.ExecuteShellCommandAsync(device, $@"{createScript} && /data/local/tmp/mtk-su -c '/data/local/tmp/y10tempCommandRun.sh' && rm /data/local/tmp/y10tempCommandRun.sh", receiver);
 
             return receiver.ToString();

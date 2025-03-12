@@ -18,6 +18,13 @@ namespace Y10_Tools.Views.Pages
             DataContext = this;
 
             InitializeComponent();
+            EventManager.ShowOverlayRequested += AddRootPageWarnings;
+            EventManager.HideOverlayRequested += RemoveRootPageWarnings;
+
+            if (ADBHelper.GetDevice() != null)
+            {
+                RemoveRootPageWarnings();
+            }
         }
         private void RootC(object sender, KeyEventArgs e)
         {
@@ -39,22 +46,18 @@ namespace Y10_Tools.Views.Pages
                 return;
             }
 
-            // Execute the command and capture the response
-            var response = await ADBShellHelper.RootShell((AdvancedSharpAdbClient.Models.DeviceData)device, $@"cd {lastdirectory} && {command} && pwd");
+            var response = await ADBHelper.RootShell((AdvancedSharpAdbClient.Models.DeviceData)device, $@"cd {lastdirectory} && {command} && pwd");
 
-            // Split response into lines
             var lines = response.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None)
                         .Where(line => !string.IsNullOrWhiteSpace(line))
                         .ToList();
 
-            // Process last line to update lastdirectory
             if (lines.Count > 0 && lines.Last().Replace("/data/local/tmp/y10tempCommandRun.sh[2]: ", "").StartsWith("/"))
             {
                 lastdirectory = lines.Last();
                 lines.RemoveAt(lines.Count - 1);
             }
 
-            // Prepare the output
             string output = string.Join(Environment.NewLine, lines);
 
             Paragraph paragraph = new Paragraph();
@@ -70,5 +73,15 @@ namespace Y10_Tools.Views.Pages
             RootShellOutputs.Document.Blocks.Add(paragraph);
         }
 
+        public void RemoveRootPageWarnings()
+        {
+            ConnectDeviceOverlay.Visibility = Visibility.Hidden;
+            ConnectDeviceOverlayBlur.Radius = 0;
+        }
+        public void AddRootPageWarnings()
+        {
+            ConnectDeviceOverlay.Visibility = Visibility.Visible;
+            ConnectDeviceOverlayBlur.Radius = 15;
+        }
     }
 }
