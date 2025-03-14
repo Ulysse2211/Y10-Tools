@@ -1,4 +1,4 @@
-![Y10 Tools](https://files.ulysse.gl/files/Y10/logo.png)
+![Y10 Tools logo, by sty1001](https://files.ulysse.gl/files/Y10/logo.png)
 
 # The ultimate all-in-one utility for your Y10 20192020 tablet !
 
