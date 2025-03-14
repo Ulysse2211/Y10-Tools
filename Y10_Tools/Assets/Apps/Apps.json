@@ -1,0 +1,82 @@
+﻿[
+  {
+    "id": "org.adaway",
+    "name": "AdAway",
+    "description": "An open-source ad blocker for Android using host file modification.",
+    "icon": "https://github.com/AdAway/AdAway/raw/master/app/src/main/res/mipmap-mdpi/icon.png",
+    "github": "AdAway/AdAway",
+    "provider": "github"
+  },
+  {
+    "id": "com.aliucord.installer",
+    "name": "Aliucord",
+    "description": "A Discord client mod for Android that adds various enhancements and customization options.",
+    "icon": "https://avatars.githubusercontent.com/u/78881422",
+    "github": "Aliucord/Aliucord",
+    "provider": "github"
+  },
+  {
+    "id": "com.aurora.store",
+    "name": "Aurora Store",
+    "description": "An open-source Google Play Store client providing a privacy-friendly alternative to download apps.",
+    "icon": "https://gitlab.com/uploads/-/system/project/avatar/6922885/icon.png",
+    "gitlab": "AuroraOSS/AuroraStore",
+    "provider": "gitlab"
+  },
+  {
+    "id": "deckers.thibault.aves",
+    "name": "Aves gallery",
+    "description": "A powerful Android gallery and metadata explorer with various customization features.",
+    "icon": "https://f-droid.org/repo/deckers.thibault.aves.libre/en-US/icon_GH5gV0fwEdeDoKaG3fRGgig1tdXzVQ9W7ULgoCprtEg=.png",
+    "github": "deckerst/aves",
+    "provider": "github"
+  },
+  {
+    "id": "com.marktka.calculatorYou",
+    "name": "Calculator You",
+    "description": "A stylish, feature-rich calculator app focused on user experience and customization.",
+    "icon": "https://f-droid.org/repo/com.marktka.calculatorYou/en-US/icon_hs5M_Cc4qQp2KgLtI2F8AkH8syZGIupNUgnjsaGyqxo=.png",
+    "github": "forzzzzz/Calculator-You",
+    "provider": "github"
+  },
+  {
+    "id": "com.looker.droidify",
+    "name": "Droidify",
+    "description": "A user-friendly alternative F-Droid client with a modern UI and additional features.",
+    "icon": "https://avatars.githubusercontent.com/u/123971387",
+    "github": "Droid-ify/client",
+    "provider": "github"
+  },
+  {
+    "id": "com.termux",
+    "name": "Termux",
+    "description": "A terminal emulator for Android that provides a Linux environment and package manager.",
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/Termux.svg/1200px-Termux.svg.png",
+    "github": "termux/termux-app",
+    "provider": "github"
+  },
+  {
+    "id": "com.amaze.filemanager",
+    "name": "Amaze File Manager",
+    "description": "A simple, light, and smooth open-source file manager with Material Design.",
+    "icon": "https://raw.githubusercontent.com/TeamAmaze/AmazeFileManager/release/4.0/icon.png",
+    "github": "TeamAmaze/AmazeFileManager",
+    "provider": "github"
+  },
+  {
+    "id": "org.schabi.newpipe",
+    "name": "NewPipe",
+    "description": "A lightweight YouTube front-end that allows video downloading and ad-free playback.",
+    "icon": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/NewPipelogo.svg/1200px-NewPipelogo.svg.png",
+    "github": "TeamNewPipe/NewPipe",
+    "provider": "github"
+  },
+  {
+    "id": "org.proninyaroslav.libretorrent",
+    "name": "LibreTorrent",
+    "description": "A minimal yet powerful torrent client for Android, built with Material Design.",
+    "icon": "https://github.com/proninyaroslav/libretorrent/raw/master/fastlane/metadata/android/en-US/images/icon.png",
+    "github": "proninyaroslav/LibreTorrent",
+    "provider": "github"
+  }
+]

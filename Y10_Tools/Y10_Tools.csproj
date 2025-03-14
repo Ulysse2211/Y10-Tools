@@ -4,14 +4,14 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>wpfui-icon.ico</ApplicationIcon>
+    <ApplicationIcon>y10t.ico</ApplicationIcon>
     <UseWPF>true</UseWPF>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wpfui-icon.ico" />
+    <Content Include="y10t.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,17 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Assets\Apps\Adaway.png" />
-    <None Remove="Assets\Apps\Aliucord.png" />
-    <None Remove="Assets\Apps\Aurora.png" />
-    <None Remove="Assets\Apps\Aves.png" />
-    <None Remove="Assets\Apps\CPU-Z.png" />
-    <None Remove="Assets\Apps\CYou.png" />
-    <None Remove="Assets\Apps\Droidify.png" />
-    <None Remove="Assets\Apps\GCam.png" />
+    <None Remove="Assets\Apps\Apps.json" />
     <None Remove="Assets\connect-device.png" />
     <None Remove="Assets\connect-device.svg" />
     <None Remove="Assets\Exploit\mtk-su" />
+    <None Remove="Assets\logo-1024.png" />
     <None Remove="Assets\logo-bg-256.png" />
     <None Remove="Assets\logo.png" />
     <None Remove="Assets\Recovery\Default_UI.png" />
@@ -45,24 +39,16 @@
     <Content Include="Assets\Exploit\mtk-su">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Assets\Apps\Apps.json" />
     <Resource Include="Assets\connect-device.png" />
+    <Resource Include="Assets\logo-1024.png" />
     <Resource Include="Assets\Recovery\TWRP_UI.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\Apps\Adaway.png" />
-    <Resource Include="Assets\Apps\Aliucord.png" />
-    <Resource Include="Assets\Apps\Aurora.png" />
-    <Resource Include="Assets\Apps\Aves.png" />
-    <Resource Include="Assets\Apps\CPU-Z.png" />
-    <Resource Include="Assets\Apps\CYou.png" />
-    <Resource Include="Assets\Apps\Droidify.png" />
-    <Resource Include="Assets\Apps\GCam.png" />
-    <Resource Include="Assets\logo-bg-256.png" />
     <Resource Include="Assets\logo.png" />
     <Resource Include="Assets\Recovery\Default_UI.png" />
     <Resource Include="Assets\Recovery\OFOX_UI.png" />
-    <Resource Include="Assets\wpfui-icon-1024.png" />
   </ItemGroup>
 
 </Project>

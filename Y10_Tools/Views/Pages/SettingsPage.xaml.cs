@@ -5,6 +5,8 @@ using AdvancedSharpAdbClient.Receivers;
 using AdvancedSharpAdbClient.DeviceCommands;
 using System.Text.RegularExpressions;
 using Y10_Tools.Helpers;
+using AdvancedSharpAdbClient;
+using System.Net;
 
 namespace Y10_Tools.Views.Pages
 {
@@ -22,6 +24,7 @@ namespace Y10_Tools.Views.Pages
             InitializeComponent();
             LoadDevices();
         }
+
         private void RefreshDevices(object sender, RoutedEventArgs e)
         {
             EventManager.TriggerShowOverlay();
@@ -32,20 +35,21 @@ namespace Y10_Tools.Views.Pages
         }
         private async void LoadDevices()
         {
-            var app = (App)System.Windows.Application.Current;
-            var devices = await Task.Run(() => app.ADB.GetDevices());
+            var devices = await Task.Run(() => ADBHelper.ADB.GetDevices());
 
             string devicesString = string.Join("\n", devices);
             devicesSelector.Items.Clear();
             foreach (DeviceData device in devices)
             {
+                var Selectable = true;
                 if (device.State != DeviceState.Online)
                 {
-                    continue;
+                    Selectable = false;
                 }
                 MenuItem deviceItem = new MenuItem
                 {
-                    Header = device.Serial
+                    Header = device.Serial,
+                    IsEnabled = Selectable
                 };
 
                 deviceItem.Click += (s, e) =>
@@ -82,12 +86,9 @@ namespace Y10_Tools.Views.Pages
         }
 
         private async void SelectDevice(DeviceData device)
-        {
-            var app = (App)Application.Current;
-            var client = app.ADB;
-            
+        {            
             IShellOutputReceiver CheckMTKChipset = new ConsoleOutputReceiver();
-            await client.ExecuteShellCommandAsync(device, "cat /proc/cpuinfo", CheckMTKChipset);
+            await ADBHelper.ADB.ExecuteShellCommandAsync(device, "cat /proc/cpuinfo", CheckMTKChipset);
             var chipset = GetLastValueOfLine("Hardware", CheckMTKChipset.ToString());
 
             if (chipset == null && !chipset.StartsWith("MT8")) {

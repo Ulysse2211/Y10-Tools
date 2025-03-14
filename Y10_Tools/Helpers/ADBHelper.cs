@@ -30,10 +30,8 @@ namespace Y10_Tools.Helpers
                 return null;
             }
 
-            var app = (App)Application.Current;
-            var client = app.ADB;
             IShellOutputReceiver CheckMTKSUBinary = new ConsoleOutputReceiver();
-            await client.ExecuteShellCommandAsync(device, "[ -e \"/data/local/tmp/mtk-su\" ]  && { echo true; chmod 755 /data/local/tmp/mtk-su } || echo false", CheckMTKSUBinary);
+            await ADB.ExecuteShellCommandAsync(device, "[ -e \"/data/local/tmp/mtk-su\" ]  && { echo true; chmod 755 /data/local/tmp/mtk-su } || echo false", CheckMTKSUBinary);
 
             if (CheckMTKSUBinary.ToString() != "true")
             {
@@ -44,14 +42,26 @@ namespace Y10_Tools.Helpers
                         await service.PushAsync(stream, "/data/local/tmp/mtk-su", UnixFileStatus.DefaultFileMode, DateTimeOffset.Now, null);
                     }
                 }
-                await client.ExecuteShellCommandAsync(device, "chmod 755 /data/local/tmp/mtk-su");
+                await ADB.ExecuteShellCommandAsync(device, "chmod 755 /data/local/tmp/mtk-su");
             }
 
             IShellOutputReceiver receiver = new ConsoleOutputReceiver();
             string createScript = $"echo -e \"#!/system/bin/sh\n{command}\" > /data/local/tmp/y10tempCommandRun.sh && chmod 755 /data/local/tmp/y10tempCommandRun.sh";
-            await client.ExecuteShellCommandAsync(device, $@"{createScript} && /data/local/tmp/mtk-su -c '/data/local/tmp/y10tempCommandRun.sh' && rm /data/local/tmp/y10tempCommandRun.sh", receiver);
+            await ADB.ExecuteShellCommandAsync(device, $@"{createScript} && /data/local/tmp/mtk-su -c '/data/local/tmp/y10tempCommandRun.sh' && rm /data/local/tmp/y10tempCommandRun.sh", receiver);
 
             return receiver.ToString();
+        }
+        public static AdbClient ADB { get; set; }
+
+        public async static void InstallApk(string path, DeviceData device)
+        {
+            PackageManager manager = new PackageManager(ADB, device);
+            await manager.InstallPackageAsync(path, new Action<InstallProgressEventArgs>(o => { }));
+        }
+        public async static void UninstallPackage(string package, DeviceData device)
+        {
+            PackageManager manager = new PackageManager(ADB, device);
+            await manager.UninstallPackageAsync(package);
         }
     }
 }

@@ -11,6 +11,7 @@ using Y10_Tools.Views.Pages;
 using Y10_Tools.Views.Windows;
 using Wpf.Ui;
 using AdvancedSharpAdbClient;
+using Y10_Tools.Helpers;
 
 namespace Y10_Tools
 {
@@ -84,12 +85,12 @@ namespace Y10_Tools
         /// <summary>
         /// Occurs when the application is loading.
         /// </summary>
-        public AdbClient ADB { get; private set; }
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
             _host.Start();
-            ADB = new AdbClient();
+            ADBHelper.ADB = new AdbClient();
+
         }
 
         /// <summary>
