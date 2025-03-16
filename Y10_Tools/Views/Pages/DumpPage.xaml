@@ -24,10 +24,18 @@
         </Grid.RowDefinitions>
         <ui:Card HorizontalAlignment="Center" Margin="10">
             <StackPanel>
-                <ui:TextBlock FontTypography="Title"
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ui:TextBlock Grid.Column="1" FontTypography="Title"
                           TextWrapping="Wrap"
                           Text="Partition List"/>
-                <Grid>
+                        <Image Grid.Column="0" Margin="0,0,10,0" Height="40" Source="pack://application:,,,/Assets/Icons/list.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+
+                    </Grid>
+                <Grid x:Name="pList">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -72,13 +80,15 @@
         </ui:Card>
 
         <ui:Button Grid.Row="1"
+                   x:Name="dButton"
                    Grid.ColumnSpan="3"
                    Content="Dump !"
                    Appearance="Primary"
-                   Icon="{ui:SymbolIcon Save24}"
+                   Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Icons/save.png', Height=30, Width=30}"
                    Height="53" Width="454"
                    HorizontalAlignment="Center"
-                   Margin="0,20,0,20"/>
+                   Margin="0,20,0,20"
+                   Click="StartDump"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>
@@ -89,7 +99,7 @@
             </Grid.RowDefinitions>
             <Border x:Name="ConnectDeviceOverlay" Visibility="Visible" Grid.Row="0" Grid.Column="0" Background="#4D000000" CornerRadius="15">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Height="200" Source="/Assets/connect-device.png"/>
+                    <Image Height="200" Source="pack://application:,,,/Assets/Icons/android-tablet.png"/>
                     <ui:TextBlock FontTypography="TitleLarge" Margin="10" Text="To use this feature, select your device in the settings !"/>
                 </StackPanel>
             </Border>

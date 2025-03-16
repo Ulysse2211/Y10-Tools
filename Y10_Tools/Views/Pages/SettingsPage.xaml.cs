@@ -31,14 +31,50 @@ namespace Y10_Tools.Views.Pages
             devicesSelector.Items.Clear();
             dropDownADB.Content = "Select your device";
             SelectedDeviceADB = null;
+            FastbootHelper.SetDevice(null);
             LoadDevices();
         }
         private async void LoadDevices()
         {
+            devicesSelector.Items.Clear();
+
             var devices = await Task.Run(() => ADBHelper.ADB.GetDevices());
+            foreach (FastbootHelper.FastbootDevice device in await FastbootHelper.GetDevices())
+            {
+                MenuItem deviceItem = new MenuItem
+                {
+                    Header = device.Serial + "(Fastboot) ⚠️",
+                    ToolTip = "The device will be rebooted into the system to establish an ADB connection."
+                };
+
+                deviceItem.Click += async (s, e) =>
+                {
+                    deviceLoader.Visibility = Visibility.Visible;
+                    refreshButton.IsEnabled = false;
+                    devicesSelector.IsEnabled = false;
+
+                    DeviceData? adbDevice = await FastbootHelper.FastbootDeviceToDeviceData(device);
+
+                    if (adbDevice == null)
+                    {
+                        UiElementsHelper.MessBox("Error", "An error occured while trying to reboot the device.\nCheck that you were not flashing anything on it while rebooting\nCheck that if the device is locked, you unlocked it.");
+                        deviceLoader.Visibility = Visibility.Hidden;
+                        refreshButton.IsEnabled = true;
+                        devicesSelector.IsEnabled = true;
+                        return;
+                    } else
+                    {
+                        devicesSelector.Items.Clear();
+                        SelectDevice((DeviceData) adbDevice);
+                        SelectedDeviceADB = null;
+                        LoadDevices();
+                    }
+                };
+
+                devicesSelector.Items.Add(deviceItem);
+            }
 
             string devicesString = string.Join("\n", devices);
-            devicesSelector.Items.Clear();
             foreach (DeviceData device in devices)
             {
                 var Selectable = true;
@@ -86,7 +122,11 @@ namespace Y10_Tools.Views.Pages
         }
 
         private async void SelectDevice(DeviceData device)
-        {            
+        {
+            FastbootHelper.SetDevice(null);
+            deviceLoader.Visibility = Visibility.Visible;
+            refreshButton.IsEnabled = false;
+            devicesSelector.IsEnabled = false;
             IShellOutputReceiver CheckMTKChipset = new ConsoleOutputReceiver();
             await ADBHelper.ADB.ExecuteShellCommandAsync(device, "cat /proc/cpuinfo", CheckMTKChipset);
             var chipset = GetLastValueOfLine("Hardware", CheckMTKChipset.ToString());
@@ -100,6 +140,12 @@ namespace Y10_Tools.Views.Pages
             dropDownADB.Content = device.Serial;
             SelectedDeviceADB = device;
             var buildprops = await ADBHelper.RootShell(device, "cat /vendor/build.prop");
+            while (buildprops == "no.")
+            {
+                UiElementsHelper.MessBox("Device locked", "Your device seems to be locked, please start by unlocking it then pressing close.");
+                await Task.Delay(10000);
+                buildprops = await ADBHelper.RootShell(device, "cat /vendor/build.prop");
+            }
             string bDate = null;
             if (buildprops != null)
             {
@@ -131,6 +177,45 @@ namespace Y10_Tools.Views.Pages
 
             EventManager.TriggerHideOverlay();
             EventManager.DeviceUpdated();
+            refreshButton.IsEnabled = true;
+            devicesSelector.IsEnabled = true;
+            deviceLoader.Visibility = Visibility.Hidden;
+
+            string serial = device.Serial;
+
+            var checkDevice = Task.Run(async () =>
+            {
+                while (true)
+                {
+                    if (SelectedDeviceADB == null)
+                    {
+                        break;
+                    }
+
+                    var tempDevices = await Task.Run(() => ADBHelper.ADB.GetDevices().ToList());
+
+                    if (!tempDevices.Contains((DeviceData)SelectedDeviceADB))
+                    {
+                        await Application.Current.Dispatcher.InvokeAsync(async () =>
+                        {
+                            dropDownADB.Content = "Select your device";
+                            SelectedDeviceADB = null;
+                            LoadDevices();
+                            EventManager.DeviceUpdated();
+                            EventManager.TriggerShowOverlay();
+                            FastbootHelper.FastbootDevice? newDevice = await FastbootHelper.FindFastbootDeviceFromSerial(serial);
+                            if (newDevice == null)
+                            {
+                                return;
+                            }
+                            FastbootHelper.SetDevice(newDevice);
+                        });
+                        break;
+                    }
+
+                    await Task.Delay(500);
+                }
+            });
         }
     }
 }

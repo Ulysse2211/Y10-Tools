@@ -32,10 +32,10 @@
     FontSize="20"
     FontWeight="Medium"
     Text="Power Options" />
-                <ui:Button Content="Shutdown" Margin="10"/>
-                <ui:Button Content="Reboot" Margin="10"/>
-                <ui:Button Content="Reboot to recovery" Margin="10"/> 
-                <ui:Button Content="Reboot to fastboot" Margin="10"/> 
+                <ui:Button Click="Shutdown" Content="Shutdown" Margin="10"/>
+                <ui:Button Click="Reboot" Content="Reboot" Margin="10"/>
+                <ui:Button Click="RebootToRC" Content="Reboot to recovery" Margin="10"/>
+                <ui:Button Click="RebootToFB" Content="Reboot to fastboot" Margin="10"/> 
             </StackPanel>
         </ui:Card>
         <ui:Card Grid.Column="1" VerticalAlignment="Top" Margin="10">
@@ -64,7 +64,7 @@ Text="Boot on file" />
         </Grid.RowDefinitions>
         <Border x:Name="ConnectDeviceOverlay" Visibility="Visible" Grid.Row="0" Grid.Column="0" Background="#4D000000" CornerRadius="15">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Height="200" Source="/Assets/connect-device.png"/>
+                <Image Height="200" Source="pack://application:,,,/Assets/Icons/android-tablet.png"/>
                 <ui:TextBlock FontTypography="TitleLarge" Margin="10" Text="To use this feature, select your device in the settings !"/>
             </StackPanel>
         </Border>

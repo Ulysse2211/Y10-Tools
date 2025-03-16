@@ -31,7 +31,7 @@
                     <ScrollViewer Height="300" Margin="10">
                         <RichTextBox x:Name="RootShellOutputs" 
                  IsReadOnly="True"
-                 Background="Black"
+                 Background="Transparent"
                  VerticalScrollBarVisibility="Auto"/>
                     </ScrollViewer>
                     <ui:AutoSuggestBox KeyDown="RootC" Margin="10" PlaceholderText="Enter a command..." Icon="{ui:SymbolIcon Send24}"/>
@@ -57,7 +57,7 @@
             </Grid.RowDefinitions>
             <Border x:Name="ConnectDeviceOverlay" Visibility="Visible" Grid.Row="0" Grid.Column="0" Background="#4D000000" CornerRadius="15">
                 <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <Image Height="200" Source="/Assets/connect-device.png"/>
+                    <Image Height="200" Source="pack://application:,,,/Assets/Icons/android-tablet.png"/>
                     <ui:TextBlock FontTypography="TitleLarge" Margin="10" Text="To use this feature, select your device in the settings !"/>
                 </StackPanel>
             </Border>

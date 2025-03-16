@@ -53,5 +53,50 @@ namespace Y10_Tools.Views.Pages
             dBProps.Content = await ADBHelper.RootShell((DeviceData)device, "cat /vendor/build.prop");
             dDProps.Content = await ADBHelper.RootShell((DeviceData)device, "cat /vendor/default.prop");
         }
+
+        public async void RebootToFB(object sender, RoutedEventArgs e)
+        {
+            var device = ADBHelper.GetDevice();
+            if (device == null)
+            {
+                return;
+            }
+            FastbootHelper.FastbootDevice? newDevice =  await ADBHelper.ADBToFastboot((DeviceData)device);
+            if (newDevice == null)
+            {
+                return;
+            }
+            FastbootHelper.SetDevice(newDevice);
+        }
+
+        public void RebootToRC(object sender, RoutedEventArgs e)
+        {
+            var device = ADBHelper.GetDevice();
+            if (device == null)
+            {
+                return;
+            }
+            ADBHelper.RootShell((DeviceData)device, "reboot recovery");
+        }
+
+        public void Reboot(object sender, RoutedEventArgs e)
+        {
+            var device = ADBHelper.GetDevice();
+            if (device == null)
+            {
+                return;
+            }
+            ADBHelper.RootShell((DeviceData)device, "reboot system");
+        }
+
+        public void Shutdown(object sender, RoutedEventArgs e)
+        {
+            var device = ADBHelper.GetDevice();
+            if (device == null)
+            {
+                return;
+            }
+            ADBHelper.RootShell((DeviceData)device, "reboot -p");
+        }
     }
 }

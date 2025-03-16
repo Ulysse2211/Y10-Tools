@@ -17,64 +17,103 @@
     mc:Ignorable="d">
     <Grid>
         <ui:InfoBar
-            VerticalAlignment="Bottom"
+            VerticalAlignment="Top"
                     IsOpen="True"
                     Message="Before being able to use this software, please plug your tablet in your computer and select it in the settings tab."
                     Severity="Warning" 
             Margin="10"/>
-        <Image HorizontalAlignment="Center" Height="212" Margin="0,27,0,0" VerticalAlignment="Top" Width="352" Source="pack://application:,,,/Assets/logo.png"/>
-        <Grid Margin="0,250,0,0">
+        <Image Margin="0,0,0,100" HorizontalAlignment="Center" Height="Auto" VerticalAlignment="Center" Width="600" Source="pack://application:,,,/Assets/logo.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+        <Grid VerticalAlignment="Bottom" Margin="0,0,0,30">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <ui:CardAction Grid.Column="0" Icon="{ui:SymbolIcon BookQuestionMark20, FontSize=43, Filled=False}" Margin="10,0,10,10">
-                <StackPanel>
-                    <ui:TextBlock
-                            Margin="0"
-                            FontTypography="BodyStrong"
-                            Foreground="{DynamicResource TextFillColorPrimaryBrush}"
-                            Text="About"
-                            TextWrapping="WrapWithOverflow" />
-                    <ui:TextBlock
-                            Appearance="Secondary"
-                            Foreground="{DynamicResource TextFillColorSecondaryBrush}"
-                            Text="About Y10 Tools, contributors, versions."
-                            TextWrapping="WrapWithOverflow" />
-                </StackPanel>
+            <ui:CardAction Grid.Column="0" Margin="10,0,10,10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="pack://application:,,,/Assets/Icons/info.png"
+               Height="40"
+               Width="40"
+               Margin="0,0,10,0"
+               RenderOptions.BitmapScalingMode="HighQuality"  />
+
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <ui:TextBlock
+                Margin="0"
+                FontTypography="BodyStrong"
+                Foreground="{DynamicResource TextFillColorPrimaryBrush}"
+                Text="About"
+                TextWrapping="WrapWithOverflow" />
+                        <ui:TextBlock
+                Appearance="Secondary"
+                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                Text="About Y10 Tools, contributors, versions."
+                TextWrapping="WrapWithOverflow" />
+                    </StackPanel>
+                </Grid>
             </ui:CardAction>
-            <ui:CardAction Grid.Column="1" Icon="{ui:SymbolIcon Box20, FontSize=43, Filled=False}" Margin="10,0,10,10">
-                <StackPanel>
-                    <ui:TextBlock
+
+            <ui:CardAction Grid.Column="1" Margin="10,0,10,10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="pack://application:,,,/Assets/Icons/maintenance.png"
+               Height="40"
+               Width="40"
+               Margin="0,0,10,0"
+               RenderOptions.BitmapScalingMode="HighQuality"  />
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <ui:TextBlock
                 Margin="0"
                 FontTypography="BodyStrong"
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                 Text="Ressources"
                 TextWrapping="WrapWithOverflow" />
-                    <ui:TextBlock
+                        <ui:TextBlock
                 Appearance="Secondary"
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                 Text="Ressources that Y10 Tools uses, and tools used to get them."
                 TextWrapping="WrapWithOverflow" />
-                </StackPanel>
+                    </StackPanel>
+                </Grid>
             </ui:CardAction>
-            <ui:CardAction Grid.Column="2" Icon="{ui:SymbolIcon BrainCircuit20, FontSize=43, Filled=False}" Margin="10,0,10,10">
-                <StackPanel>
-                    <ui:TextBlock
+            <ui:CardAction Grid.Column="2" Margin="10,0,10,10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Image Source="pack://application:,,,/Assets/Icons/book.png"
+   Height="40"
+   Width="40"
+   Margin="0,0,10,0"
+   RenderOptions.BitmapScalingMode="HighQuality"  />
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <ui:TextBlock
                 Margin="0"
                 FontTypography="BodyStrong"
                 Foreground="{DynamicResource TextFillColorPrimaryBrush}"
                 Text="Documentation"
                 TextWrapping="WrapWithOverflow" />
-                    <ui:TextBlock
+                        <ui:TextBlock
                 Appearance="Secondary"
                 Foreground="{DynamicResource TextFillColorSecondaryBrush}"
                 Text="Documentation about this tool's internals."
                 TextWrapping="WrapWithOverflow" />
-                </StackPanel>
+                    </StackPanel>
+                </Grid>
+
             </ui:CardAction>
-        </Grid>
+    </Grid>
     </Grid>
 </Page>

@@ -7,7 +7,7 @@ namespace Y10_Tools
         public static event Action ShowOverlayRequested;
         public static event Action HideOverlayRequested;
         public static event Action DeviceUpdatedRequested;
-
+        public static event Action FastbootDeviceUpdatedRequested;
         public static void TriggerShowOverlay()
         {
             ShowOverlayRequested?.Invoke();
@@ -18,9 +18,15 @@ namespace Y10_Tools
             DeviceUpdatedRequested?.Invoke();
         }
 
+        public static void FastbootDeviceUpdated()
+        {
+            FastbootDeviceUpdatedRequested?.Invoke();
+        }
+
         public static void TriggerHideOverlay()
         {
             HideOverlayRequested?.Invoke();
         }
+
     }
 }

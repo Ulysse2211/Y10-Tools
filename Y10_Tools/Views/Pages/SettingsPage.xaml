@@ -39,16 +39,15 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <ui:DropDownButton Grid.Column="0" x:Name="dropDownADB" Content="Select your device" Icon="{ui:SymbolIcon Tablet24}" Margin="10,10,0,0">
+                        <ui:DropDownButton Grid.Column="0" x:Name="dropDownADB" Content="Select your device" Icon="{ui:SymbolIcon Tablet24}" Margin="10,10,0,10">
                             <ui:DropDownButton.Flyout>
                                 <ContextMenu x:Name="devicesSelector">
-                                    <MenuItem Header="ADB Name" />
-                                    <MenuItem Header="ADB Name" />
                                 </ContextMenu>
                             </ui:DropDownButton.Flyout>
                         </ui:DropDownButton>
-                        <ui:Button Grid.Column="1" Icon="{ui:SymbolIcon ArrowClockwise12}" Margin="10,10,0,0"
+                        <ui:Button Grid.Column="1" Icon="{ui:SymbolIcon ArrowClockwise12}" Margin="10,10,0,10" x:Name="refreshButton"
                                    ToolTipService.ToolTip="Refresh the list of devices" Click="RefreshDevices"></ui:Button>
+                        <ProgressBar Grid.ColumnSpan="2" IsIndeterminate="True" VerticalAlignment="Bottom" Visibility="Hidden" x:Name="deviceLoader"/>
                     </Grid>
                 </Grid>
             </StackPanel>

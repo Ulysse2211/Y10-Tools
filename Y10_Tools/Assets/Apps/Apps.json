@@ -78,5 +78,13 @@
     "icon": "https://github.com/proninyaroslav/libretorrent/raw/master/fastlane/metadata/android/en-US/images/icon.png",
     "github": "proninyaroslav/LibreTorrent",
     "provider": "github"
+  },
+  {
+    "id": "org.torproject.android",
+    "name": "Orbot",
+    "description": "Orbot is a freely licensed open-source application developed for the Android platform. It acts as a front-end for the Tor binary application, while also providing a secure HTTP Proxy for connecting web browsers and other HTTP client applications into the Tor SOCKS interface.",
+    "icon": "https://github.com/guardianproject/orbot-android/raw/master/app/src/main/res/mipmap-xxxhdpi/ic_launcher_round.png",
+    "github": "guardianproject/orbot-android",
+    "provider": "github"
   }
 ]

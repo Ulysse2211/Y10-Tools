@@ -11,6 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="Assets\adb.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\fastboot.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="y10t.ico" />
   </ItemGroup>
 
@@ -22,10 +28,31 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Assets\adb.exe" />
     <None Remove="Assets\Apps\Apps.json" />
-    <None Remove="Assets\connect-device.png" />
     <None Remove="Assets\connect-device.svg" />
     <None Remove="Assets\Exploit\mtk-su" />
+    <None Remove="Assets\fastboot.exe" />
+    <None Remove="Assets\Icons\add-file.png" />
+    <None Remove="Assets\Icons\administrator.png" />
+    <None Remove="Assets\Icons\android-tablet.png" />
+    <None Remove="Assets\Icons\back.png" />
+    <None Remove="Assets\Icons\book.png" />
+    <None Remove="Assets\Icons\control-panel.png" />
+    <None Remove="Assets\Icons\create-new.png" />
+    <None Remove="Assets\Icons\delete.png" />
+    <None Remove="Assets\Icons\developer-mode.png" />
+    <None Remove="Assets\Icons\doctors-bag.png" />
+    <None Remove="Assets\Icons\downloads.png" />
+    <None Remove="Assets\Icons\gear.png" />
+    <None Remove="Assets\Icons\info.png" />
+    <None Remove="Assets\Icons\list.png" />
+    <None Remove="Assets\Icons\maintenance.png" />
+    <None Remove="Assets\Icons\misc.png" />
+    <None Remove="Assets\Icons\pen-drive.png" />
+    <None Remove="Assets\Icons\restart.png" />
+    <None Remove="Assets\Icons\save.png" />
+    <None Remove="Assets\Icons\shutdown.png" />
     <None Remove="Assets\logo-1024.png" />
     <None Remove="Assets\logo-bg-256.png" />
     <None Remove="Assets\logo.png" />
@@ -40,7 +67,26 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Assets\Apps\Apps.json" />
-    <Resource Include="Assets\connect-device.png" />
+    <Resource Include="Assets\Icons\add-file.png" />
+    <Resource Include="Assets\Icons\administrator.png" />
+    <Resource Include="Assets\Icons\android-tablet.png" />
+    <Resource Include="Assets\Icons\back.png" />
+    <Resource Include="Assets\Icons\book.png" />
+    <Resource Include="Assets\Icons\control-panel.png" />
+    <Resource Include="Assets\Icons\create-new.png" />
+    <Resource Include="Assets\Icons\delete.png" />
+    <Resource Include="Assets\Icons\developer-mode.png" />
+    <Resource Include="Assets\Icons\doctors-bag.png" />
+    <Resource Include="Assets\Icons\downloads.png" />
+    <Resource Include="Assets\Icons\gear.png" />
+    <Resource Include="Assets\Icons\info.png" />
+    <Resource Include="Assets\Icons\list.png" />
+    <Resource Include="Assets\Icons\maintenance.png" />
+    <Resource Include="Assets\Icons\misc.png" />
+    <Resource Include="Assets\Icons\pen-drive.png" />
+    <Resource Include="Assets\Icons\restart.png" />
+    <Resource Include="Assets\Icons\save.png" />
+    <Resource Include="Assets\Icons\shutdown.png" />
     <Resource Include="Assets\logo-1024.png" />
     <Resource Include="Assets\Recovery\TWRP_UI.png" />
   </ItemGroup>
@@ -49,6 +95,16 @@
     <Resource Include="Assets\logo.png" />
     <Resource Include="Assets\Recovery\Default_UI.png" />
     <Resource Include="Assets\Recovery\OFOX_UI.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\Drivers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\Drivers\install64.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

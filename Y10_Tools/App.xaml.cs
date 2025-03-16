@@ -12,6 +12,8 @@ using Y10_Tools.Views.Windows;
 using Wpf.Ui;
 using AdvancedSharpAdbClient;
 using Y10_Tools.Helpers;
+using System.Diagnostics;
+using Wpf.Ui.Appearance;
 
 namespace Y10_Tools
 {
@@ -89,7 +91,20 @@ namespace Y10_Tools
         private void OnStartup(object sender, StartupEventArgs e)
         {
             _host.Start();
+            var adbserverstart = Process.Start(new ProcessStartInfo
+            {
+                FileName = @"adb.exe",
+                Arguments = "start-server",
+                UseShellExecute = false,
+                CreateNoWindow = true
+            });
+            adbserverstart.WaitForExit();
+
             ADBHelper.ADB = new AdbClient();
+
+            ApplicationAccentColorManager.Apply(
+                (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#BA3030")
+            );
 
         }
 
@@ -99,6 +114,8 @@ namespace Y10_Tools
         private async void OnExit(object sender, ExitEventArgs e)
         {
             await _host.StopAsync();
+
+            Directory.Delete(FilesHelper.GetTempFilePath(), true);
 
             _host.Dispose();
         }
