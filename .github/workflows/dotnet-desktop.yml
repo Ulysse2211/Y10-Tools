@@ -31,25 +31,6 @@ jobs:
       - name: Publish as self-contained exe
         run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
 
-      - name: Get version from app.manifest
-        id: get_version
-        run: |
-          $manifestPath = "app.manifest"
-          if (Test-Path $manifestPath) {
-            $content = Get-Content $manifestPath -Raw
-            if ($content -match '<assemblyIdentity[^>]*version="([^"]+)"') {
-              $version = $Matches[1]
-              Write-Host "Version: $version"
-              echo "version=$version" >> $env:GITHUB_ENV
-            } else {
-              Write-Error "Version tag not found in $manifestPath"
-              exit 1
-            }
-          } else {
-            Write-Error "$manifestPath not found"
-            exit 1
-          }
-
       - name: Read CHANGELOG.md
         id: read_changelog
         run: |
@@ -60,14 +41,14 @@ jobs:
             Write-Output "EOF" >> $env:GITHUB_ENV
           } else {
             Write-Error "CHANGELOG.md not found"
-            exit 1
+            $notes = "Not Found"
           }
 
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create temp-release --draft --title "Y10 Tools - $env:version" --notes "$env:notes"
+          gh release create temp-release --draft --title "Y10 Tools - v0" --notes "$env:notes"
 
       - name: Upload Artifact to Release
         env:
