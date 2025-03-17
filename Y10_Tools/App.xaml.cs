@@ -112,11 +112,11 @@ namespace Y10_Tools
             {
                 try
                 {
-                    MessageBox.Show(ex.ToString());
+                    File.WriteAllText("error_log.txt", ex.ToString());
                 }
                 catch (Exception ex2)
                 {
-                    File.WriteAllText("error_log.txt", ex.ToString() + '\n' + ex2.ToString());
+                    MessageBox.Show(ex.ToString() + '\n' + ex2.ToString());
                 }
             }
 
