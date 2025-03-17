@@ -31,21 +31,22 @@ jobs:
       - name: Publish as self-contained exe
         run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
 
-      - name: Get version from .csproj
+      - name: Get version from app.manifest
         id: get_version
         run: |
-          $csproj = Get-ChildItem -Recurse -Filter *.csproj | Select-Object -First 1
-          if (-not $csproj) {
-            Write-Error "No .csproj file found."
-            exit 1
-          }
-          $content = Get-Content $csproj.FullName -Raw
-          if ($content -match '<Version>(.*?)</Version>') {
-            $version = $Matches[1]
-            Write-Host "Version: $version"
-            echo "version=$version" >> $env:GITHUB_ENV
+          $manifestPath = "app.manifest"
+          if (Test-Path $manifestPath) {
+            $content = Get-Content $manifestPath -Raw
+            if ($content -match '<assemblyIdentity[^>]*version="([^"]+)"') {
+              $version = $Matches[1]
+              Write-Host "Version: $version"
+              echo "version=$version" >> $env:GITHUB_ENV
+            } else {
+              Write-Error "Version tag not found in $manifestPath"
+              exit 1
+            }
           } else {
-            Write-Error "Version tag not found in $($csproj.FullName)"
+            Write-Error "$manifestPath not found"
             exit 1
           }
 
