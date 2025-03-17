@@ -1,5 +1,4 @@
 # This has been made by ChatGPT since I don't want to bother making actions.
-
 name: Build WPF App
 
 on:
@@ -29,31 +28,48 @@ jobs:
       - name: Build project
         run: dotnet build --configuration Release --no-restore
 
-      - name: Publish exe
+      - name: Publish as self-contained exe
         run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
 
-      - name: Prepare Release
+      - name: Get version from .csproj
         id: get_version
         run: |
-          version=$(cat *.csproj | grep -oPm1 "(?<=<Version>)[^<]+")
-          echo "version=$version" >> $GITHUB_ENV
+          $csproj = Get-ChildItem -Filter *.csproj | Select-Object -First 1
+          if (-not $csproj) {
+            Write-Error "No .csproj file found."
+            exit 1
+          }
+          $content = Get-Content $csproj.FullName -Raw
+          if ($content -match '<Version>(.*?)</Version>') {
+            $version = $Matches[1]
+            Write-Host "Version: $version"
+            echo "version=$version" >> $env:GITHUB_ENV
+          } else {
+            Write-Error "Version tag not found in $($csproj.FullName)"
+            exit 1
+          }
 
       - name: Read CHANGELOG.md
-        id: changelog
+        id: read_changelog
         run: |
-          notes=$(cat CHANGELOG.md)
-          echo "notes<<EOF" >> $GITHUB_ENV
-          echo "$notes" >> $GITHUB_ENV
-          echo "EOF" >> $GITHUB_ENV
+          if (Test-Path "CHANGELOG.md") {
+            $notes = Get-Content "CHANGELOG.md" -Raw
+            Write-Output "notes<<EOF" >> $env:GITHUB_ENV
+            Write-Output "$notes" >> $env:GITHUB_ENV
+            Write-Output "EOF" >> $env:GITHUB_ENV
+          } else {
+            Write-Error "CHANGELOG.md not found"
+            exit 1
+          }
 
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create temp-release --draft --title "Y10 Tools - ${{ env.version }}" --notes "${{ env.notes }}"
+          gh release create temp-release --draft --title "Y10 Tools - $env:version" --notes "$env:notes"
 
       - name: Upload Artifact to Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload temp-release "Y10_Tools\bin\Release\net8.0-windows\win-x64\publish\Y10_Tools.exe"
+          gh release upload temp-release "Y10_Tools/bin/Release/net8.0-windows/win-x64/publish/Y10_Tools.exe"
