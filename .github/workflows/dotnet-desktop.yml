@@ -86,7 +86,7 @@ jobs:
         run: dotnet publish -c Debug -r win-x64 --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
             name: Debug Build
             path: Y10_Tools/bin/Release/net8.0-windows/win-x64/publish/Y10_Tools.exe
