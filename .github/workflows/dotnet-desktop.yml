@@ -1,3 +1,5 @@
+# This has been made by ChatGPT since I don't want to bother making actions.
+
 name: Build WPF App
 
 on:
@@ -27,45 +29,28 @@ jobs:
       - name: Build project
         run: dotnet build --configuration Release --no-restore
 
-      - name: Publish as self-contained exe
+      - name: Publish exe
         run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.x'
-
-      - name: Install Dependencies
-        run: pip install transformers torch
-
-      - name: Generate Release Notes
-        id: generate_notes
+      - name: Prepare Release
+        id: get_version
         run: |
-          python -c """
-import torch
-from transformers import GPTNeoForCausalLM, AutoTokenizer
+          version=$(cat *.csproj | grep -oPm1 "(?<=<Version>)[^<]+")
+          echo "version=$version" >> $GITHUB_ENV
 
-model_name = 'EleutherAI/gpt-neo-125M'
-model = GPTNeoForCausalLM.from_pretrained(model_name)
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-
-commit_message = '''$(git log -1 --pretty=%B)'''
-input_text = f'Generate release notes based on the following commit message: {commit_message}'
-
-input_ids = tokenizer(input_text, return_tensors='pt').input_ids
-
-with torch.no_grad():
-    output = model.generate(input_ids, max_length=150)
-
-notes = tokenizer.decode(output[0], skip_special_tokens=True)
-print(f'::set-output name=notes::{notes}')
-"""
+      - name: Read CHANGELOG.md
+        id: changelog
+        run: |
+          notes=$(cat CHANGELOG.md)
+          echo "notes<<EOF" >> $GITHUB_ENV
+          echo "$notes" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
 
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create temp-release --draft --title "Draft Release" --notes "${{ steps.generate_notes.outputs.notes }}"
+          gh release create temp-release --draft --title "Y10 Tools - ${{ env.version }}" --notes "${{ env.notes }}"
 
       - name: Upload Artifact to Release
         env:
