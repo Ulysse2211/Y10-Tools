@@ -1,4 +1,4 @@
-![Y10 Tools](Assets/logo.png)
+![Y10 Tools](Y10_Tools/Assets/logo.png)
 
 # The ultimate all-in-one utility for your Y10 20192020 tablet !
 
