@@ -34,7 +34,7 @@ jobs:
       - name: Get version from .csproj
         id: get_version
         run: |
-          $csproj = Get-ChildItem -Filter *.csproj | Select-Object -First 1
+          $csproj = Get-ChildItem -Recurse -Filter *.csproj | Select-Object -First 1
           if (-not $csproj) {
             Write-Error "No .csproj file found."
             exit 1
