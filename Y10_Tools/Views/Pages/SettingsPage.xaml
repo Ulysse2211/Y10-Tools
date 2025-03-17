@@ -23,7 +23,14 @@
         </Grid.ColumnDefinitions>
         <ui:Card Grid.Column="0" VerticalAlignment="Top" Margin="10">
             <StackPanel>
-                <ui:TextBlock FontTypography="Subtitle" Text="Device" Margin="10"/>
+                <Grid Margin="0,0,0,5">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ui:TextBlock FontTypography="SubTitle" Margin="0,10,0,10" Grid.Column="1" Text="Device"/>
+                    <Image Grid.Column="0" Margin="0,0,5,0" Height="30" Source="pack://application:,,,/Assets/Icons/android-tablet.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                </Grid>
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -39,13 +46,13 @@
                             <ColumnDefinition Width="auto"/>
                             <ColumnDefinition Width="auto"/>
                         </Grid.ColumnDefinitions>
-                        <ui:DropDownButton Grid.Column="0" x:Name="dropDownADB" Content="Select your device" Icon="{ui:SymbolIcon Tablet24}" Margin="10,10,0,10">
+                        <ui:DropDownButton Grid.Column="0" x:Name="dropDownADB" Content="Select your device" Margin="10,10,0,10">
                             <ui:DropDownButton.Flyout>
                                 <ContextMenu x:Name="devicesSelector">
                                 </ContextMenu>
                             </ui:DropDownButton.Flyout>
                         </ui:DropDownButton>
-                        <ui:Button Grid.Column="1" Icon="{ui:SymbolIcon ArrowClockwise12}" Margin="10,10,0,10" x:Name="refreshButton"
+                        <ui:Button Grid.Column="1" Margin="10,10,0,10" x:Name="refreshButton"
                                    ToolTipService.ToolTip="Refresh the list of devices" Click="RefreshDevices"></ui:Button>
                         <ProgressBar Grid.ColumnSpan="2" IsIndeterminate="True" VerticalAlignment="Bottom" Visibility="Hidden" x:Name="deviceLoader"/>
                     </Grid>

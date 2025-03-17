@@ -22,6 +22,19 @@ namespace Y10_Tools.Views.Pages
             DataContext = this;
 
             InitializeComponent();
+            dropDownADB.Icon = new ImageIcon {
+                Source = FilesHelper.CreateBitmapImage("android-os.png", 24),
+                Height = 24,
+                Width = 24
+            };
+
+            refreshButton.Icon = new ImageIcon
+            {
+                Source = FilesHelper.CreateBitmapImage("update.png", 24),
+                Height = 24,
+                Width = 24
+            };
+
             LoadDevices();
         }
 

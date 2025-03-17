@@ -44,7 +44,7 @@ namespace Y10_Tools.Helpers
                 }
 
                 IShellOutputReceiver receiver = new ConsoleOutputReceiver();
-                string createScript = $"echo -e \"#!/system/bin/sh\n{command}\" > /data/local/tmp/y10tempCommandRun.sh && chmod 755 /data/local/tmp/y10tempCommandRun.sh";
+                string createScript = $"echo -e \"#!/system/bin/sh\n" + @$"{command}" + "\" > /data/local/tmp/y10tempCommandRun.sh && chmod 755 /data/local/tmp/y10tempCommandRun.sh";
                 try
                 {
                     await ADB.ExecuteShellCommandAsync(device, $@"{createScript} && /data/local/tmp/mtk-su -c '/data/local/tmp/y10tempCommandRun.sh' && rm /data/local/tmp/y10tempCommandRun.sh", receiver);

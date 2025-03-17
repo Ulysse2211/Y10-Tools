@@ -18,15 +18,61 @@
             <Grid.Effect>
                 <BlurEffect x:Name="ConnectDeviceOverlayBlur" Radius="15"/>
             </Grid.Effect>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-            <ui:Card Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ui:Card Grid.Column="0" Margin="10">
+                <StackPanel Height="413" Width="350">
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ui:TextBlock FontTypography="Title" Grid.Column="1"
+                            TextWrapping="Wrap"
+                            Text="Magisk"
+                            VerticalAlignment="Top"/>
+                        <Image Grid.Column="0" Margin="0,0,5,0" Height="30" Source="pack://application:,,,/Assets/Icons/administrator.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Grid>
+                    <StackPanel>
+                        <Grid x:Name="MagiskInstalled">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ui:TextBlock FontTypography="BodyStrong" Grid.Column="1"
+                                TextWrapping="Wrap"
+                                Text="Magisk Installed: "
+                                VerticalAlignment="Top"/>
+                            <Image Grid.Column="0" Margin="0,0,5,0" Height="15" Source="pack://application:,,,/Assets/Icons/info.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                            <Image Grid.Column="2" Margin="0,0,5,0" Height="15" Source="pack://application:,,,/Assets/Icons/delete.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Grid>
+                    </StackPanel>
+                    <ui:Button
+           Content="Install Magisk !"
+           Appearance="Primary"
+           Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Icons/cyber-security.png', Height=30, Width=30}"
+           HorizontalAlignment="Center"
+           VerticalAlignment="Bottom"
+           Margin="20"/>
+                </StackPanel>
+            </ui:Card>
+
+            <ui:Card Grid.Column="1">
                 <StackPanel>
-                    <ui:TextBlock FontTypography="Title"
-                          TextWrapping="Wrap"
-                          Text="Root shell"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ui:TextBlock FontTypography="Title" Grid.Column="1"
+            TextWrapping="Wrap"
+            Text="Root Shell"
+            VerticalAlignment="Top"/>
+                        <Image Grid.Column="0" Margin="0,0,5,0" Height="30" Source="pack://application:,,,/Assets/Icons/bash.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Grid>
 
                     <ScrollViewer Height="300" Margin="10">
                         <RichTextBox x:Name="RootShellOutputs" 
@@ -34,19 +80,10 @@
                  Background="Transparent"
                  VerticalScrollBarVisibility="Auto"/>
                     </ScrollViewer>
-                    <ui:AutoSuggestBox KeyDown="RootC" Margin="10" PlaceholderText="Enter a command..." Icon="{ui:SymbolIcon Send24}"/>
+                    <ui:AutoSuggestBox KeyDown="RootC" Margin="10" PlaceholderText="Enter a command..." Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Icons/sent.png'}"/>
 
                 </StackPanel>
             </ui:Card>
-
-            <ui:Button Grid.Row="1"
-                   Grid.ColumnSpan="3"
-                   Content="Root the tablet using Magisk"
-                   Appearance="Primary"
-                   Icon="{ui:SymbolIcon BracesCheckmark16}"
-                   Height="53" Width="454"
-                   HorizontalAlignment="Center"
-                   Margin="0,20,0,20"/>
         </Grid>
         <Grid>
             <Grid.ColumnDefinitions>

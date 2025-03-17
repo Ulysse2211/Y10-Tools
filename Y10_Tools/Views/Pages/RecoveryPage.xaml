@@ -19,44 +19,74 @@
                 <BlurEffect x:Name="ConnectDeviceOverlayBlur" Radius="15"/>
             </Grid.Effect>
             <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <ui:Card Grid.Column="0" Margin="10">
-            <RadioButton GroupName="recovery_type">
-                <StackPanel>
-                    <ui:TextBlock FontTypography="Subtitle" Text="TWRP"/>
-                    <ui:Image CornerRadius="4" BorderBrush="#33000000" Height="300" Source="pack://application:,,,/Assets/Recovery/TWRP_UI.png"/>
-                </StackPanel>
-            </RadioButton>
-        </ui:Card>
-        <ui:Card Grid.Column="1" Margin="10">
-            <RadioButton GroupName="recovery_type">
-                <StackPanel>
-                    <ui:TextBlock FontTypography="Subtitle" Text="Orange Fox"/>
-                    <ui:Image CornerRadius="4" BorderBrush="#33000000" Height="300" Source="pack://application:,,,/Assets/Recovery/OFOX_UI.png"/>
-                </StackPanel>
-            </RadioButton>
-        </ui:Card>
-        <ui:Card Grid.Column="2" Margin="10">
-            <RadioButton GroupName="recovery_type">
-                <StackPanel>
-                    <ui:TextBlock FontTypography="Subtitle" Text="Default"/>
-                    <ui:Image CornerRadius="4" BorderBrush="#33000000" Height="300" Source="pack://application:,,,/Assets/Recovery/Default_UI.png"/>
-                </StackPanel>
-            </RadioButton>
-        </ui:Card>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ui:Card Grid.Column="0" Margin="10">
+                <RadioButton GroupName="recovery_type">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ui:TextBlock FontTypography="SubTitle" Grid.Column="1"
+                                TextWrapping="Wrap"
+                                Text="Team Win Recovery Project (TWRP)"
+                                VerticalAlignment="Top"/>
+                            <Image Grid.Column="0" Margin="0,0,5,0" Height="30" Source="pack://application:,,,/Assets/Icons/compact-layout.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Grid>
+                        <ui:Image CornerRadius="4" BorderBrush="#33000000" Height="300" Source="pack://application:,,,/Assets/Recovery/TWRP_UI.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </StackPanel>
+                </RadioButton>
+            </ui:Card>
+            <ui:Card Grid.Column="1" Margin="10">
+                <RadioButton GroupName="recovery_type">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ui:TextBlock FontTypography="SubTitle" Grid.Column="1"
+                                TextWrapping="Wrap"
+                                Text="Orange Fox Recovery (OFOX)"
+                                VerticalAlignment="Top"/>
+                            <Image Grid.Column="0" Margin="0,0,5,0" Height="30" Source="pack://application:,,,/Assets/Icons/best-seller.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Grid>
+                        <ui:Image CornerRadius="4" BorderBrush="#33000000" Height="300" Source="pack://application:,,,/Assets/Recovery/OFOX_UI.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </StackPanel>
+                </RadioButton>
+            </ui:Card>
+            <ui:Card Grid.Column="2" Margin="10">
+                <RadioButton GroupName="recovery_type">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <ui:TextBlock FontTypography="SubTitle" Grid.Column="1"
+                                TextWrapping="Wrap"
+                                Text="Default Recovery"
+                                VerticalAlignment="Top"/>
+                            <Image Grid.Column="0" Margin="0,0,5,0" Height="30" Source="pack://application:,,,/Assets/Icons/monster-face.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                        </Grid>
+                        <ui:Image CornerRadius="4" BorderBrush="#33000000" Height="300" Source="pack://application:,,,/Assets/Recovery/Default_UI.png" RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </StackPanel>
+                </RadioButton>
+            </ui:Card>
 
-        <ui:Button Grid.Row="1"
+            <ui:Button Grid.Row="1"
                    Grid.ColumnSpan="3"
                    Content="Flash !"
                    Appearance="Primary"
-                   Icon="{ui:SymbolIcon Flash24}"
+                   Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Icons/flash.png', Height=30, Width=30}"
                    Height="53" Width="454"
                    HorizontalAlignment="Center"
                    Margin="0,20,0,20"/>

@@ -18,43 +18,118 @@
             <Grid.Effect>
                 <BlurEffect x:Name="ConnectDeviceOverlayBlur" Radius="15"/>
             </Grid.Effect>
-            <Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ui:Card HorizontalAlignment="Center" Margin="10" Grid.Column="0">
-                <StackPanel>
-                    <ui:TextBlock FontTypography="Title"
-                  Text="Other Options"/>
-                    <CheckBox Margin="10" Content="Remove the 'Orange State' warning. (Danger)" ToolTipService.ToolTip="This feature is experimental and might brick your tablet. I am not responsible for any damage done."/>
-                </StackPanel>
-            </ui:Card>
-            <ui:Card Margin="10" Grid.Column="1">
+            <ui:Card HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="10" Grid.Column="0">
                 <StackPanel>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
-                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <ui:TextBlock FontTypography="Title" Grid.Column="0"
-      TextWrapping="Wrap"
-      Text="New Bootanimation"/>
-                        <ui:Button Content="Edit" Grid.Column="1" Margin="10,0,0,0" Icon="{ui:SymbolIcon Pen24}" HorizontalAlignment="Right"></ui:Button>
+
+                        <ui:TextBlock FontTypography="Title"
+                  Text="Other Options" Grid.Column="1"/>
+                        <Image Grid.Column="0" Margin="0,0,5,0" Height="30" Source="pack://application:,,,/Assets/Icons/sorting-options.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
                     </Grid>
-                    <MediaElement Source="" />
+                    <Grid Height="155" Width="800" Margin="0,10,0,0">
+                        <CheckBox VerticalAlignment="Top" Margin="10" Content="Remove the 'Orange State' warning. (Danger)" ToolTipService.ToolTip="This feature is experimental and might brick your tablet. I am not responsible for any damage done."/>
+                    </Grid>
                 </StackPanel>
             </ui:Card>
-        </Grid>
-        <ui:Button Grid.Row="2"
-               Grid.ColumnSpan="3"
+            <ui:Card Margin="10" Grid.Column="1" VerticalAlignment="Top">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ui:TextBlock FontTypography="Title" Grid.Column="1"
+                            TextWrapping="Wrap"
+                            Text="Bootanimation"
+                            VerticalAlignment="Top"/>
+                        <Image Grid.Column="0" Margin="0,0,5,0" Height="30" Source="pack://application:,,,/Assets/Icons/iphone-spinner.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Grid>
+                    <ui:Button Content="Edit" Grid.Column="1" Margin="10,0,0,0" Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Icons/drawing.png'}" HorizontalAlignment="Right"></ui:Button>
+                    <ui:Card Margin="0,10,0,0" Grid.Row="1" Grid.ColumnSpan="2">
+                        <MediaElement Height="120" Width="800" Source="" />
+                    </ui:Card>
+                </Grid>
+            </ui:Card>
+            <ui:Card Margin="10" Grid.Column="1" Grid.Row="1"  VerticalAlignment="Top">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ui:TextBlock FontTypography="Title" Grid.Column="1"
+                            TextWrapping="Wrap"
+                            Text="Boot logo"
+                            VerticalAlignment="Top"/>
+                        <Image Grid.Column="0" Margin="0,0,5,0" Height="30" Source="pack://application:,,,/Assets/Icons/microsoft-paint.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Grid>
+                    <ui:Button Content="Edit" Grid.Column="1" Margin="10,0,0,0" Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Icons/drawing.png'}" HorizontalAlignment="Right"></ui:Button>
+                    <ui:Card Margin="0,10,0,0" Grid.Row="1" Grid.ColumnSpan="2">
+                        <ui:Image Height="120" Width="800" />
+                    </ui:Card>
+                </Grid>
+            </ui:Card>
+            <ui:Card Margin="10" Grid.Column="0" Grid.Row="1"  VerticalAlignment="Top">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <ui:TextBlock FontTypography="Title" Grid.Column="1"
+                                TextWrapping="Wrap"
+                                Text="Charging Images"
+                                VerticalAlignment="Top"/>
+                        <Image Grid.Column="0" Margin="0,0,5,0" Height="30" Source="pack://application:,,,/Assets/Icons/charge-battery.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                    </Grid>
+                    <ui:Button Content="Edit" Grid.Column="1" Margin="10,0,0,0" Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Icons/drawing.png'}" HorizontalAlignment="Right"></ui:Button>
+                    <ui:Card Margin="0,10,0,0" Grid.Row="1" Grid.ColumnSpan="2">
+                        <MediaElement Height="120" Width="800" Source="" />
+                    </ui:Card>
+                </Grid>
+            </ui:Card>
+            <ui:Button Grid.Row="2"
+               Grid.ColumnSpan="2"
                Content="Save !"
                Appearance="Primary"
-               Icon="{ui:SymbolIcon Pen24}"
+               Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Icons/create-new.png', Height=30, Width=30}"
                Height="53" Width="454"
                HorizontalAlignment="Center"
                Margin="0,20,0,20"/>
@@ -68,7 +143,7 @@
         </Grid.RowDefinitions>
         <Border x:Name="ConnectDeviceOverlay" Visibility="Visible" Grid.Row="0" Grid.Column="0" Background="#4D000000" CornerRadius="15">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Height="200" Source="pack://application:,,,/Assets/Icons/android-tablet.png"/>
+                <Image Height="200" Source="/Assets/Icons/android-tablet.png"/>
                 <ui:TextBlock FontTypography="TitleLarge" Margin="10" Text="To use this feature, select your device in the settings !"/>
             </StackPanel>
         </Border>

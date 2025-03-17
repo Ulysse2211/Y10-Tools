@@ -32,10 +32,10 @@
     FontSize="20"
     FontWeight="Medium"
     Text="Power Options" />
-                <ui:Button Click="Shutdown" Content="Shutdown" Margin="10"/>
-                <ui:Button Click="Reboot" Content="Reboot" Margin="10"/>
-                <ui:Button Click="RebootToRC" Content="Reboot to recovery" Margin="10"/>
-                <ui:Button Click="RebootToFB" Content="Reboot to fastboot" Margin="10"/> 
+                <ui:Button Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Icons/shutdown.png'}" Click="Shutdown" Content="Shutdown" Margin="0,10"/>
+                <ui:Button Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Icons/restart.png'}" Click="Reboot" Content="Reboot" Margin="0,10"/>
+                <ui:Button Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Icons/control-panel.png'}" Click="RebootToRC" Content="Reboot to recovery" Margin="0,10"/>
+                <ui:Button Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Icons/lab-items.png'}"  Click="RebootToFB" Content="Reboot to fastboot" Margin="0,10"/> 
             </StackPanel>
         </ui:Card>
         <ui:Card Grid.Column="1" VerticalAlignment="Top" Margin="10">
@@ -44,15 +44,43 @@
 FontSize="20"
 FontWeight="Medium"
 Text="Boot on file" />
-                <ui:Button Content="Chose File" Icon="{ui:SymbolIcon FolderAdd24}" Margin="10"/>
-                <ui:TextBlock FontWeight="Bold" Margin="10" Text="File: "/>
+                <ui:Button Content="Chose File" Icon="{ui:ImageIcon 'pack://application:,,,/Assets/Icons/add-file.png'}" Margin="0,10"/>
+                <ui:TextBlock FontWeight="Bold" Margin="0,10" Text="File: "/>
             </StackPanel>
         </ui:Card>
         <ui:Card Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="10">
             <StackPanel>
-                <Expander x:Name="dBProps" Header="build.prop" Margin="10" />
-                <Expander x:Name="dDProps" Header="default.prop"  Margin="10"/>
-            </StackPanel>
+                    <Expander x:Name="dBProps" Margin="10">
+                        <Expander.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ui:TextBlock FontTypography="BodyStrong" Grid.Column="1"
+                                    TextWrapping="Wrap"
+                                    Text="Vendor build.prop"
+                                    VerticalAlignment="Top"/>
+                                <Image Grid.Column="0" Margin="0,0,5,0" Height="20" Source="pack://application:,,,/Assets/Icons/maintenance.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                            </Grid>
+                        </Expander.Header>
+                    </Expander>
+                    <Expander x:Name="dDProps" Margin="10">
+                        <Expander.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <ui:TextBlock FontTypography="BodyStrong" Grid.Column="1"
+                TextWrapping="Wrap"
+                Text="Vendor default.prop"
+                VerticalAlignment="Top"/>
+                                <Image Grid.Column="0" Margin="0,0,5,0" Height="20" Source="pack://application:,,,/Assets/Icons/info.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                            </Grid>
+                        </Expander.Header>
+                    </Expander>
+                </StackPanel>
         </ui:Card>
     </Grid>
     <Grid>
@@ -64,7 +92,7 @@ Text="Boot on file" />
         </Grid.RowDefinitions>
         <Border x:Name="ConnectDeviceOverlay" Visibility="Visible" Grid.Row="0" Grid.Column="0" Background="#4D000000" CornerRadius="15">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                <Image Height="200" Source="pack://application:,,,/Assets/Icons/android-tablet.png"/>
+                <Image Height="200" Source="/Assets/Icons/android-tablet.png"/>
                 <ui:TextBlock FontTypography="TitleLarge" Margin="10" Text="To use this feature, select your device in the settings !"/>
             </StackPanel>
         </Border>
