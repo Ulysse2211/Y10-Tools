@@ -19,9 +19,15 @@
     </Content>
     <Content Include="y10t.ico" />
   </ItemGroup>
+  
+  <ItemGroup>  
+	<EmbeddedResource Include="Assets\Exploit\mtk-su" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="AdvancedSharpAdbClient" Version="3.4.14" />
+    <PackageReference Include="Sentry" Version="5.4.0" />
+    <PackageReference Include="Sentry.Profiling" Version="5.4.0" />
     <PackageReference Include="WPF-UI" Version="3.0.4" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2 " />
@@ -80,9 +86,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Assets\Exploit\mtk-su">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Assets\Apps\Apps.json" />
     <Resource Include="Assets\Icons\add-file.png" />
     <Resource Include="Assets\Icons\administrator.png" />

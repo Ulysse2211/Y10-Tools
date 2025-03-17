@@ -29,8 +29,12 @@ namespace Y10_Tools
         // https://docs.microsoft.com/dotnet/core/extensions/logging
         private static readonly IHost _host = Host
             .CreateDefaultBuilder()
-            .ConfigureAppConfiguration(c => { c.SetBasePath(Path.GetDirectoryName(Assembly.GetEntryAssembly()!.Location)); })
-            .ConfigureServices((context, services) =>
+            .ConfigureAppConfiguration(c =>
+            {
+                var basePath = Path.GetDirectoryName(Assembly.GetEntryAssembly()?.Location)
+                               ?? AppDomain.CurrentDomain.BaseDirectory;
+                c.SetBasePath(basePath);
+            }).ConfigureServices((context, services) =>
             {
                 services.AddHostedService<ApplicationHostService>();
 
@@ -92,6 +96,32 @@ namespace Y10_Tools
         {
             try
             {
+                DispatcherUnhandledException += App_DispatcherUnhandledException;
+                SentrySdk.Init(o =>
+                {
+                    // Tells which project in Sentry to send events to:
+                    o.Dsn = "https://dccb6a5c71184e7179667ee791bf033f@o4508994432532480.ingest.de.sentry.io/4508994455797840";
+                    // When configuring for the first time, to see what the SDK is doing:
+                    o.TracesSampleRate = 1.0;
+                    o.ProfilesSampleRate = 1.0;
+                    o.Debug = true;
+                    o.AttachStacktrace = true;
+                    o.CaptureFailedRequests = true;
+                    o.DiagnosticLevel = SentryLevel.Debug;
+                    o.AutoSessionTracking = true;
+                    o.IsGlobalModeEnabled = true;
+                    o.FailedRequestStatusCodes.Add((400, 499));
+                    o.AddIntegration(new ProfilingIntegration(
+                        // During startup, wait up to 500ms to profile the app startup code.
+                        // This could make launching the app a bit slower so comment it out if you
+                        // prefer profiling to start asynchronously
+                        TimeSpan.FromMilliseconds(500)
+                    ));
+                });
+
+                AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+                DispatcherUnhandledException += App_DispatcherUnhandledException;
+
                 _host.Start();
                 var adbserverstart = Process.Start(new ProcessStartInfo
                 {
@@ -110,16 +140,8 @@ namespace Y10_Tools
             }
             catch (Exception ex)
             {
-                try
-                {
-                    File.WriteAllText("error_log.txt", ex.ToString());
-                }
-                catch (Exception ex2)
-                {
-                    MessageBox.Show(ex.ToString() + '\n' + ex2.ToString());
-                }
-            }
-
+                UnhandledExceptionHandler3000WOWSuchAHandsomeFunctionNameNoJokes(ex);
+            } 
         }
 
         /// <summary>
@@ -139,6 +161,32 @@ namespace Y10_Tools
         /// </summary>
         private void OnDispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
+            UnhandledExceptionHandler3000WOWSuchAHandsomeFunctionNameNoJokes(e.Exception);
+            // For more info see https://docs.microsoft.com/en-us/dotnet/api/system.windows.application.dispatcherunhandledexception?view=windowsdesktop-6.0
+        }
+
+        private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
+        {
+            UnhandledExceptionHandler3000WOWSuchAHandsomeFunctionNameNoJokes(e.Exception);
+            e.Handled = true;
+        }
+
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            UnhandledExceptionHandler3000WOWSuchAHandsomeFunctionNameNoJokes(e.ExceptionObject as Exception);
+        }
+
+        private static void UnhandledExceptionHandler3000WOWSuchAHandsomeFunctionNameNoJokes(Exception e)
+        {
+            try
+            {
+                File.WriteAllText("error_log.txt", e.ToString());
+                SentrySdk.CaptureException(e);
+            }
+            catch (Exception ex2)
+            {
+                MessageBox.Show(e.ToString() + '\n' + ex2.ToString());
+            }
             // For more info see https://docs.microsoft.com/en-us/dotnet/api/system.windows.application.dispatcherunhandledexception?view=windowsdesktop-6.0
         }
     }

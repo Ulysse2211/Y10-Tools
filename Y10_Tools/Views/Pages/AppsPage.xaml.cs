@@ -251,8 +251,8 @@ namespace Y10_Tools.Views.Pages
         {
             try
             {
-
-                var http = new HttpClient();
+                var httpHandler = new SentryHttpMessageHandler();
+                var http = new HttpClient(httpHandler);
                 http.DefaultRequestHeaders.UserAgent.ParseAdd("ulysse2211/Y10_Tools");
 
                 string downloadUrl = null;

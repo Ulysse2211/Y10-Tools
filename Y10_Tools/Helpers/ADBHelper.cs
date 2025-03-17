@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Y10_Tools.Views.Pages;
 using AdvancedSharpAdbClient.Exceptions;
+using System.Reflection;
 
 namespace Y10_Tools.Helpers
 {
@@ -35,9 +36,12 @@ namespace Y10_Tools.Helpers
                 {
                     using (SyncService service = new SyncService(device))
                     {
-                        using (FileStream stream = File.OpenRead("Assets/Exploit/mtk-su"))
+                        var assembly = Assembly.GetExecutingAssembly();
+                        string resourceName = "Y10_Tools.Assets.Exploit.mtk-su";
+
+                        using (Stream resourceStream = assembly.GetManifestResourceStream(resourceName))
                         {
-                            await service.PushAsync(stream, "/data/local/tmp/mtk-su", UnixFileStatus.DefaultFileMode, DateTimeOffset.Now, null);
+                            await service.PushAsync(resourceStream, "/data/local/tmp/mtk-su", UnixFileStatus.DefaultFileMode, DateTimeOffset.Now, null);
                         }
                     }
                     await ADB.ExecuteShellCommandAsync(device, "chmod 755 /data/local/tmp/mtk-su");
