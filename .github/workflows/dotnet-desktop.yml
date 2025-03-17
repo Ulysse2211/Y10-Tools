@@ -62,7 +62,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create temp-release \
-            "Y10_Tools/bin/Release/net8.0-windows/win-x64/publish/Y10_Tools.exe" \
-            "Y10_Tools/bin/Debug/net8.0-windows/win-x64/publish/Y10_Tools.exe" \
-            --repo Ulysse2211/Y10-Tools --draft --title "Y10 Tools - v0" --notes "$env:notes"
+          gh release create temp-release "Y10_Tools/bin/Release/net8.0-windows/win-x64/publish/Y10_Tools.exe" "Y10_Tools/bin/Debug/net8.0-windows/win-x64/publish/Y10_Tools.exe" --repo Ulysse2211/Y10-Tools --draft --title "Y10 Tools - v0" --notes "$env:notes"
