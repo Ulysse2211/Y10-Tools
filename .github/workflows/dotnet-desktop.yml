@@ -89,4 +89,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
             name: Debug Build
-            path: Y10_Tools/bin/Release/net8.0-windows/win-x64/publish/Y10_Tools.exe
+            path: Y10_Tools/bin/Debug/net8.0-windows/win-x64/*
