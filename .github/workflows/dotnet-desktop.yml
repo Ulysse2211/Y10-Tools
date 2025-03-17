@@ -1,5 +1,5 @@
 # This has been made by ChatGPT since I don't want to bother making actions.
-name: Build WPF App
+name: Build
 
 on:
   push:
@@ -12,6 +12,12 @@ on:
 jobs:
   build:
     runs-on: windows-latest
+
+    permissions:
+      contents: write
+      id-token: write
+      issues: write
+      pull-requests: write
 
     steps:
       - name: Checkout code
@@ -44,14 +50,17 @@ jobs:
             $notes = "Not Found"
           }
 
+      - name: Setup GitHub CLI
+        run: gh auth login --with-token <<< "${{ secrets.GITHUB_TOKEN }}"
+
       - name: Create Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release create temp-release --draft --title "Y10 Tools - v0" --notes "$env:notes"
+          gh release create temp-release "Y10_Tools/bin/Release/net8.0-windows/win-x64/publish/Y10_Tools.exe" --repo Ulysse2211/Y10-Tools --draft --title "Y10 Tools - v0" --notes "$env:notes"
 
       - name: Upload Artifact to Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh release upload temp-release "Y10_Tools/bin/Release/net8.0-windows/win-x64/publish/Y10_Tools.exe"
+          gh release upload temp-release "Y10_Tools/bin/Release/net8.0-windows/win-x64/publish/Y10_Tools.exe" --repo Ulysse2211/Y10-Tools
