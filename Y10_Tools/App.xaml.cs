@@ -90,21 +90,35 @@ namespace Y10_Tools
 
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            _host.Start();
-            var adbserverstart = Process.Start(new ProcessStartInfo
+            try
             {
-                FileName = @"adb.exe",
-                Arguments = "start-server",
-                UseShellExecute = false,
-                CreateNoWindow = true
-            });
-            adbserverstart.WaitForExit();
+                _host.Start();
+                var adbserverstart = Process.Start(new ProcessStartInfo
+                {
+                    FileName = @"adb.exe",
+                    Arguments = "start-server",
+                    UseShellExecute = false,
+                    CreateNoWindow = true
+                });
+                adbserverstart.WaitForExit();
 
-            ADBHelper.ADB = new AdbClient();
+                ADBHelper.ADB = new AdbClient();
 
-            ApplicationAccentColorManager.Apply(
-                (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#BA3030")
-            );
+                ApplicationAccentColorManager.Apply(
+                    (System.Windows.Media.Color)System.Windows.Media.ColorConverter.ConvertFromString("#BA3030")
+                );
+            }
+            catch (Exception ex)
+            {
+                try
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                catch (Exception ex2)
+                {
+                    File.WriteAllText("error_log.txt", ex.ToString() + '\n' + ex2.ToString());
+                }
+            }
 
         }
 
