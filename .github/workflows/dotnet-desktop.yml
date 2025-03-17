@@ -27,11 +27,11 @@ jobs:
       - name: Build project
         run: dotnet build --configuration Release --no-restore
 
-      - name: Publish as self-contained exe
+      - name: Make the exe
         run: dotnet publish -c Release -r win-x64 --self-contained -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: WPFApp
+          name: Y10_Tools
           path: '**/bin/Release/**/publish/'
