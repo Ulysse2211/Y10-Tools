@@ -25,6 +25,20 @@ namespace Y10_Tools.Helpers
             return null;
         }
 
+        public async static Task<List<string>> GetPackagesList(DeviceData device)
+        {
+            var packageListText = "";
+            IShellOutputReceiver receiver = new ConsoleOutputReceiver();
+
+            await ADBHelper.ADB.ExecuteShellCommandAsync((DeviceData)device, "pm list packages", receiver);
+
+            packageListText = receiver.ToString();
+            packageListText = packageListText.Replace("package:", "");
+            return packageListText.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
+                                         .Select(p => p.Trim())
+                                         .ToList();
+        }
+
         public static async Task<string?> RootShell(DeviceData device, string command)
         {
             try
@@ -102,5 +116,28 @@ namespace Y10_Tools.Helpers
             }
         }
 
+        public static async Task<double> getTemp(DeviceData device, string sensor)
+        {
+            IShellOutputReceiver receiver = new ConsoleOutputReceiver();
+            await ADB.ExecuteShellCommandAsync(device, "cat /sys/class/thermal/thermal_zone*/type", receiver);
+
+            int i = 0;
+            foreach (string sensorName in receiver.ToString().Trim().ToLower().Split("\n"))
+            {
+                if (sensorName.Contains(sensor))
+                {
+                    IShellOutputReceiver receiver2 = new ConsoleOutputReceiver();
+                    await ADB.ExecuteShellCommandAsync(device, $"cat /sys/class/thermal/thermal_zone{i}/temp", receiver2);
+
+                    if (double.TryParse(receiver2.ToString().ToLower().Trim().Replace("\n", "").Replace("\r", "").Replace(" ", ""), out double value))
+                    {
+                        return value;
+                    }
+                }
+                i += 1;
+            }
+
+            return 0;
+        }
     }
 }

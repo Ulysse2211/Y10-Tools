@@ -60,6 +60,12 @@ namespace Y10_Tools.Views.Pages
 
             string output = string.Join(Environment.NewLine, lines);
 
+            if (output.Replace("[2J\u001b[H/", "") != output)
+            {
+                RootShellOutputs.Document.Blocks.Clear();
+                output = output.Replace("[2J\u001b[H/", "");
+            }
+
             Paragraph paragraph = new Paragraph();
             paragraph.Inlines.Add(new Run($"root@{((AdvancedSharpAdbClient.Models.DeviceData)device).Serial} ") { Foreground = new SolidColorBrush(Colors.Green) });
             paragraph.Inlines.Add(new Run(lastdirectory));

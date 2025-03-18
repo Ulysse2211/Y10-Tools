@@ -58,16 +58,7 @@ namespace Y10_Tools.Views.Pages
             var device = ADBHelper.GetDevice();
             if (device != null)
             {
-                var packageListText = "";
-                IShellOutputReceiver receiver = new ConsoleOutputReceiver();
-
-                await ADBHelper.ADB.ExecuteShellCommandAsync((DeviceData)device, "pm list packages", receiver);
-                
-                packageListText = receiver.ToString();
-                packageListText = packageListText.Replace("package:", "");
-                packageList = packageListText.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)
-                                             .Select(p => p.Trim())
-                                             .ToList();
+                packageList = await ADBHelper.GetPackagesList((DeviceData)device);
             }
             AppsStackPannel.Children.Clear();
 

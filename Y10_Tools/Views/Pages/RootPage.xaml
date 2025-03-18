@@ -33,7 +33,7 @@
                             TextWrapping="Wrap"
                             Text="Magisk"
                             VerticalAlignment="Top"/>
-                        <Image Grid.Column="0" Margin="0,0,5,0" Height="30" Source="pack://application:,,,/Assets/Icons/administrator.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
+                        <Image Grid.Column="0" Margin="0,0,5,0" Height="30" Source="pack://application:,,,/Assets/Icons/administrator-male.png"  RenderOptions.BitmapScalingMode="HighQuality"/>
                     </Grid>
                     <StackPanel>
                         <Grid x:Name="MagiskInstalled">

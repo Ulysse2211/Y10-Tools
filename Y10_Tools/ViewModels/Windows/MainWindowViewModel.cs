@@ -47,7 +47,7 @@ namespace Y10_Tools.ViewModels.Windows
             new NavigationViewItem()
             {
                 Content = "Root",
-                Icon = new ImageIcon { Height = 24, Width = 24, Source = FilesHelper.CreateBitmapImage("administrator.png", 24) },
+                Icon = new ImageIcon { Height = 24, Width = 24, Source = FilesHelper.CreateBitmapImage("administrator-male.png", 24) },
                 TargetPageType = typeof(Views.Pages.RootPage)
             },
             new NavigationViewItem()
@@ -59,7 +59,7 @@ namespace Y10_Tools.ViewModels.Windows
             new NavigationViewItem()
             {
                 Content = "Misc",
-                Icon = new ImageIcon { Height = 24, Width = 24, Source = FilesHelper.CreateBitmapImage("misc.png", 24) },
+                Icon = new ImageIcon { Height = 24, Width = 24, Source = FilesHelper.CreateBitmapImage("categorize.png", 24) },
                 TargetPageType = typeof(Views.Pages.MiscPage)
             }
         };

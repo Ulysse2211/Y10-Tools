@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using Y10_Tools.Helpers;
 using AdvancedSharpAdbClient;
 using System.Net;
+using Sentry.Protocol;
 
 namespace Y10_Tools.Views.Pages
 {
@@ -30,13 +31,109 @@ namespace Y10_Tools.Views.Pages
 
             refreshButton.Icon = new ImageIcon
             {
-                Source = FilesHelper.CreateBitmapImage("update.png", 24),
+                Source = FilesHelper.CreateBitmapImage("refresh.png", 24),
                 Height = 24,
                 Width = 24
             };
 
+            EventManager.DeviceUpdatedRequested += UpdateDeviceInfos;
+
+            if (ADBHelper.GetDevice() != null)
+            {
+                UpdateDeviceInfos();
+            }
+
             LoadDevices();
         }
+
+        private void UpdateDeviceInfos()
+        {
+            if (ADBHelper.GetDevice() == null)
+            {
+                return;
+            }
+            try
+            {
+                UpdateBatteryLevel();
+                UpdateSerialNumber();
+                UpdateAndroidVersion();
+                UpdateManufacturer();
+                UpdateChipsetInfos();
+                UpdatePackageNumber();
+                // UpdateStorageAndMemory();
+                // UpdateSELinuxStatus();
+                // UpdateIP();
+            } catch (Exception e)
+            {
+                SentrySdk.CaptureException(e);
+            }
+        }
+        private async void UpdatePackageNumber()
+        {
+            List<string> packageList = await ADBHelper.GetPackagesList((DeviceData)ADBHelper.GetDevice());
+            PackagesNLabel.Text = $"Number of packages: {packageList.Count}";
+        }
+        private async void UpdateChipsetInfos()
+        {
+            IShellOutputReceiver reciever = new ConsoleOutputReceiver();
+            await ADBHelper.ADB.ExecuteShellCommandAsync((DeviceData)ADBHelper.GetDevice(), "cat /proc/cpuinfo", reciever);
+            var chipset = GetLastValueOfLine("Hardware", reciever.ToString());
+            ChipsetLabel.Text = "Chipset: " + chipset;
+
+            IShellOutputReceiver receiver = new ConsoleOutputReceiver();
+            await ADBHelper.ADB.ExecuteShellCommandAsync((DeviceData)ADBHelper.GetDevice(), "getprop ro.product.cpu.abi", receiver);
+            string arch = receiver.ToString().Trim().Replace("\n", "");
+            CpuArchLabel.Text = "CPU architecture: " + arch;
+            if (arch.Contains("64"))
+            {
+                Cpu64.Visibility = Visibility.Visible;
+                Cpu32.Visibility = Visibility.Hidden;
+            } else
+            {
+                Cpu64.Visibility = Visibility.Hidden;
+                Cpu32.Visibility = Visibility.Visible;
+            }
+
+            double temp = await ADBHelper.getTemp((DeviceData) ADBHelper.GetDevice(), "cpu") / 1000;
+
+            CpuTempLabel.Text = $"CPU Temerature: {temp}°C";
+
+        }
+        private async void UpdateManufacturer()
+        {
+            var buildprops = await ADBHelper.RootShell((DeviceData)ADBHelper.GetDevice(), "cat /vendor/build.prop");
+            if (buildprops != null)
+            {
+                string manufacturer = GetLastValueOfLine("ro.product.vendor.manufacturer=", buildprops.Replace("\r", "").Replace(" ", "").Trim().ToLower());
+                ManuLabel.Text = "Manufacturer: " + manufacturer;
+            }
+        }
+        private async void UpdateAndroidVersion()
+        {
+            IShellOutputReceiver receiver = new ConsoleOutputReceiver();
+            await ADBHelper.ADB.ExecuteShellCommandAsync((DeviceData)ADBHelper.GetDevice(), "getprop ro.build.version.release", receiver);
+            AndroidLabel.Text = "Android Version: " + receiver.ToString().Trim().Replace("\n", "");
+        }
+        private void UpdateSerialNumber()
+        {
+            DeviceData device = (DeviceData)ADBHelper.GetDevice();
+            SerialNumberLabel.Text = $"Serial Number: {device.Serial}";
+        }
+        private async void UpdateBatteryLevel()
+        {
+            IShellOutputReceiver receiver = new ConsoleOutputReceiver();
+            await ADBHelper.ADB.ExecuteShellCommandAsync((DeviceData)ADBHelper.GetDevice(), "dumpsys battery", receiver);
+            string batteryLevelString = GetLastValueOfLine("level:", receiver.ToString().Replace(" ", "").Trim().ToLower());
+            if (double.TryParse(batteryLevelString, out double value))
+            {
+                BatteryLevelBar.Value = value;
+            }
+            BatteryLevelLabel.Text = $"Battery Level: ({batteryLevelString}%) ";
+        }
+
+        ////////////////////////////////////////////////
+        ///              Device selector             ///
+        ////////////////////////////////////////////////
 
         private void RefreshDevices(object sender, RoutedEventArgs e)
         {
@@ -109,7 +206,6 @@ namespace Y10_Tools.Views.Pages
                 devicesSelector.Items.Add(deviceItem);
             }
         }
-
         private static string? GetLastValueOfLine(string line, string data)
         {
             var linefound = "";
@@ -133,7 +229,6 @@ namespace Y10_Tools.Views.Pages
             }
             return null;
         }
-
         private async void SelectDevice(DeviceData device)
         {
             FastbootHelper.SetDevice(null);
@@ -229,6 +324,18 @@ namespace Y10_Tools.Views.Pages
                     await Task.Delay(500);
                 }
             });
+
+            while (true)
+            {
+                if (SelectedDeviceADB == null)
+                {
+                    break;
+                }
+
+                UpdateDeviceInfos();
+
+                await Task.Delay(10000);
+            }
         }
     }
 }

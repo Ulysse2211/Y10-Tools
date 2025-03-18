@@ -1,3 +1,6 @@
-✅: Added | ✏️: Modified | 🩹: Patched/Fixed | ❌: Removed
----
-• 🩹 Fix the app not starting uppon build with github action (hopefully)
+✅: Added | ✏️: Modified | 🩹: Patched/Fixed | ❌: Removed  
+---  
+• ✅ New helper functions added.  
+• ✏️ Icon sizes adjusted.  
+• ✅ Additional information included in the settings.  
+• ✏️ Minor adjustments and improvements.  
